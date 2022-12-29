@@ -15,7 +15,7 @@ public class SplashActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(this, PomodoroActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }, 9000);
