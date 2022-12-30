@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.improve10x.pomodoro.databinding.TodoItemBinding;
+import com.improve10x.pomodoro.fragment.Task;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = taskItems.get(position);
-        holder.binding.todoListTxt.setText(task.taskList);
+        holder.binding.todoListTxt.setText(task.title);
     }
 
     @Override

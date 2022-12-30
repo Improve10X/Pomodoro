@@ -2,20 +2,23 @@ package com.improve10x.pomodoro;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.improve10x.pomodoro.base.BaseFragment;
 import com.improve10x.pomodoro.databinding.FragmentTodoBinding;
+import com.improve10x.pomodoro.fragment.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class TodoFragment extends BaseFragment {
@@ -23,6 +26,7 @@ public class TodoFragment extends BaseFragment {
     private ArrayList<Task> taskItems = new ArrayList<>();
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,18 +44,19 @@ public class TodoFragment extends BaseFragment {
     }
 
     private void fetchData() {
-        Call<List<Task>> call = toDoServices.fetchTasks();
-        call.enqueue(new Callback<List<Task>>() {
-            @Override
-            public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
-                List<Task> tasks = response.body();
-                taskItemsAdapter.setTaskItems(tasks);
-            }
-
-            @Override
-            public void onFailure(Call<List<Task>> call, Throwable t) {
-
-            }
-        });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("tasks")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                           List<Task> tasks = task.getResult().toObjects(Task.class);
+                           taskItemsAdapter.setTaskItems(tasks);
+                        } else {
+                            Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

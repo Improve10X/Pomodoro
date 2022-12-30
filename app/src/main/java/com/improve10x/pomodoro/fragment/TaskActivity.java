@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import com.improve10x.pomodoro.CreateTaskActivity;
 import com.improve10x.pomodoro.ui.main.SectionsPagerAdapter;
 import com.improve10x.pomodoro.databinding.ActivityTaskBinding;
 
@@ -45,7 +46,7 @@ public class TaskActivity extends AppCompatActivity {
 
     private void handleAddFab() {
         binding.addFab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, CreateTaskActivity.class);
             startActivity(intent);
         });
     }
