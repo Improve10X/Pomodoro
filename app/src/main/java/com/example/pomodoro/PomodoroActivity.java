@@ -22,7 +22,7 @@ public class PomodoroActivity extends AppCompatActivity {
 
     private void handleTaskList() {
         binding.tasklistBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(this, TaskListActivity.class);
+            Intent intent = new Intent(this, TaskActivity.class);
             startActivity(intent);
         });
 

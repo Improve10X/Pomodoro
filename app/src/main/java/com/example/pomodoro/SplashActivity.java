@@ -18,6 +18,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PomodoroActivity.class);
             startActivity(intent);
             finish();
-        }, 9000);
+        }, 3000);
     }
 }
