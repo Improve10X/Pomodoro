@@ -1,4 +1,4 @@
-package com.example.pomodoro.ui.main;
+package com.improve10x.pomodoro.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pomodoro.R;
-import com.example.pomodoro.databinding.FragmentTaskBinding;
+import com.improve10x.pomodoro.R;
+import com.improve10x.pomodoro.databinding.FragmentTaskBinding;
 
 /**
  * A placeholder fragment containing a simple view.

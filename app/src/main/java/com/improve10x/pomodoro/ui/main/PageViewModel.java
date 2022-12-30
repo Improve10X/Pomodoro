@@ -1,4 +1,4 @@
-package com.example.pomodoro.ui.main;
+package com.improve10x.pomodoro.ui.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

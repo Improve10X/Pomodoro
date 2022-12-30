@@ -1,16 +1,14 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.pomodoro.databinding.FragmentTodoBinding;
+import com.improve10x.pomodoro.databinding.FragmentTodoBinding;
 
 import java.util.ArrayList;
 import java.util.List;
