@@ -1,0 +1,16 @@
+package com.improve10x.pomodoro;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class CreateTaskActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_task);
+        getSupportActionBar().setTitle("Create Task");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+}
