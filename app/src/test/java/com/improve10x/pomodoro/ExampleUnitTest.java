@@ -1,4 +1,4 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
 import org.junit.Test;
 

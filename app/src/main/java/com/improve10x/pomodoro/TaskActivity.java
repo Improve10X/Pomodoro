@@ -1,4 +1,4 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,19 +10,10 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.pomodoro.ui.main.SectionsPagerAdapter;
-import com.example.pomodoro.databinding.ActivityTaskBinding;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.improve10x.pomodoro.ui.main.SectionsPagerAdapter;
+import com.improve10x.pomodoro.databinding.ActivityTaskBinding;
 
 public class TaskActivity extends AppCompatActivity {
 

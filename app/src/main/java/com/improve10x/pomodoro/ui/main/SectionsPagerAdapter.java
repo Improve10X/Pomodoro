@@ -1,17 +1,15 @@
-package com.example.pomodoro.ui.main;
+package com.improve10x.pomodoro.ui.main;
 
 import android.content.Context;
-import android.icu.text.Transliterator;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.pomodoro.CompletedFragment;
-import com.example.pomodoro.R;
-import com.example.pomodoro.TodoFragment;
+import com.improve10x.pomodoro.CompletedFragment;
+import com.improve10x.pomodoro.R;
+import com.improve10x.pomodoro.TodoFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
