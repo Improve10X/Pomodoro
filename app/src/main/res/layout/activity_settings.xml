@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context=".SettingsActivity">
+    tools:context="com.improve10x.pomodoro.SettingsActivity">
 
     <TextView
         android:id="@+id/textView5"
