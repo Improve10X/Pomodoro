@@ -1,4 +1,4 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,9 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pomodoro.databinding.TodoItemBinding;
+import com.improve10x.pomodoro.databinding.TodoItemBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {

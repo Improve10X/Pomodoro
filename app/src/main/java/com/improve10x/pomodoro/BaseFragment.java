@@ -1,10 +1,9 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class BaseFragment extends Fragment {

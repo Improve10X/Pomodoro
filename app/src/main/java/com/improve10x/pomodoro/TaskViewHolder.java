@@ -1,11 +1,8 @@
-package com.example.pomodoro;
+package com.improve10x.pomodoro;
 
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pomodoro.databinding.TodoItemBinding;
+import com.improve10x.pomodoro.databinding.TodoItemBinding;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
     TodoItemBinding binding;
