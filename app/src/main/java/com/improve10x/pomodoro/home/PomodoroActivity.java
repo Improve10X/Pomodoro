@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.improve10x.pomodoro.EditDialogFragment;
 import com.improve10x.pomodoro.SettingsActivity;
 import com.improve10x.pomodoro.databinding.ActivityPomodoroBinding;
 import com.improve10x.pomodoro.fragment.TaskActivity;
@@ -21,6 +22,8 @@ public class PomodoroActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         handleTaskList();
         handleSettings();
+        //EditDialogFragment fragment = new EditDialogFragment();
+        //fragment.show(getSupportFragmentManager(), this.getClass().getSimpleName());
     }
 
     private void handleTaskList() {
