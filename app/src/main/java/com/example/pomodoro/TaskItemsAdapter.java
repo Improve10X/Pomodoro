@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pomodoro.databinding.TodoItemBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
-    private ArrayList<Task> taskItems;
+    private List<Task> taskItems;
 
-    void setTaskItems(ArrayList<Task> taskItems) {
+    void setTaskItems(List<Task> taskItems) {
         this.taskItems = taskItems;
         notifyDataSetChanged();
     }

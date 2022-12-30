@@ -4,26 +4,32 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentTodoBinding;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class TodoFragment extends Fragment {
-    private ArrayList<Task> taskItems;
+public class TodoFragment extends BaseFragment {
+
+    private ArrayList<Task> taskItems = new ArrayList<>();
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
-        todoData();
+        fetchData();
         toDoRv();
         return binding.getRoot();
     }
@@ -35,12 +41,19 @@ public class TodoFragment extends Fragment {
         binding.todoRv.setAdapter(taskItemsAdapter);
     }
 
-    private void todoData() {
-        taskItems = new ArrayList<>();
-        Task task = new Task();
-        task.taskList = "Good MorningGood MorningGood MorningGood MorningGood MorningGood MorningGood Morning";
-        taskItems.add(task);
-        taskItems.add(task);
-        taskItems.add(task);
+    private void fetchData() {
+        Call<List<Task>> call = toDoServices.fetchTasks();
+        call.enqueue(new Callback<List<Task>>() {
+            @Override
+            public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
+                List<Task> tasks = response.body();
+                taskItemsAdapter.setTaskItems(tasks);
+            }
+
+            @Override
+            public void onFailure(Call<List<Task>> call, Throwable t) {
+
+            }
+        });
     }
 }
