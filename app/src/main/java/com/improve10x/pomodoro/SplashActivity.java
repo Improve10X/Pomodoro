@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.improve10x.pomodoro.home.PomodoroActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

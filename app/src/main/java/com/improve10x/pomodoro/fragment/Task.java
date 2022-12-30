@@ -1,9 +1,9 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.fragment;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Task {
-   @SerializedName("_id")
+
     public String id;
-    public String taskList;
+    public String title;
 }

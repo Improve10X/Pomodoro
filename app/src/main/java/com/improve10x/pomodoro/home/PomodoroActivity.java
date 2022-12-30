@@ -1,11 +1,13 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.improve10x.pomodoro.SettingsActivity;
 import com.improve10x.pomodoro.databinding.ActivityPomodoroBinding;
+import com.improve10x.pomodoro.fragment.TaskActivity;
 
 public class PomodoroActivity extends AppCompatActivity {
 

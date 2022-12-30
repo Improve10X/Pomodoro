@@ -22,7 +22,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TaskActivity"
+            android:name=".fragment.TaskActivity"
             android:exported="true"
             android:label="@string/title_activity_task"
             android:theme="@style/Theme.Pomodoro.NoActionBar">
@@ -31,7 +31,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PomodoroActivity"
+            android:name=".home.PomodoroActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
