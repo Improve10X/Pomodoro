@@ -10,5 +10,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
+        getSupportActionBar().setTitle("Create Task");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
