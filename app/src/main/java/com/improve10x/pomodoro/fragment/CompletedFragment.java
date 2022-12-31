@@ -34,7 +34,7 @@ public class CompletedFragment extends Fragment {
 
     private void setupData() {
         Task task = new Task();
-        task.title = "Never stop learning because life never stops teaching";
+        task.title = "Never stop learning because life never stops teaching and books will be our good friends";
         tasks.add(task);
     }
 
