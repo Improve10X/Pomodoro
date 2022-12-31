@@ -44,13 +44,19 @@
         app:layout_constraintTop_toTopOf="@+id/tasklist_btn"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ProgressBar
+    <com.ss.profilepercentageview.ProfilePercentageView
         android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="258dp"
-        android:layout_height="215dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:ppv_arcBackgroundColor="#FFE0B2"
+        app:ppv_arcProgressEndColor="#E65100"
+        app:ppv_arcProgressStartColor="#E65100"
+        app:ppv_arcWidth="6dp"
+        app:ppv_currentValue="72"
+        app:ppv_imgBorderColor="@color/borderColor"
+        app:ppv_isRounded="true"
+        app:ppv_max="30000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
