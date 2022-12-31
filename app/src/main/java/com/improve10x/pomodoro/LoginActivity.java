@@ -27,7 +27,6 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginBtn;
-    Button logoutBtn;
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
@@ -49,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         loginBtn = findViewById(R.id.login_id);
-        logoutBtn = findViewById(R.id.logout_btn);
         loginBtn.setOnClickListener(view -> {
             Intent signInIntent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
@@ -58,25 +56,13 @@ public class LoginActivity extends AppCompatActivity {
             signInLauncher.launch(signInIntent);
 
         });
-
-        logoutBtn.setOnClickListener(v -> {
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // ...
-                        }
-                    });
-        });
     }
 
     private void updateUi() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
-            logoutBtn.setVisibility(View.VISIBLE);
             loginBtn.setVisibility(View.GONE);
         } else {
-            logoutBtn.setVisibility(View.GONE);
             loginBtn.setVisibility(View.VISIBLE);
         }
 
