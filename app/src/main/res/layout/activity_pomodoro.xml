@@ -8,84 +8,156 @@
 
     <ImageButton
         android:id="@+id/settings_ib"
-        android:layout_width="70dp"
-        android:layout_height="66dp"
+        android:layout_width="61dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="#FAF9F9"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/ic_baseline_settings_24" />
 
-    <Button
-        android:id="@+id/tasklist_btn"
-        android:layout_width="150dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="48dp"
-        android:text="Task List"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/start_btn" />
+    <ImageButton
+        android:id="@+id/task_list_btn"
+        android:layout_width="61dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#FAF9F9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
     <Button
         android:id="@+id/start_btn"
-        android:layout_width="150dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Start"
         android:textAllCaps="false"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tasklist_btn"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.ss.profilepercentageview.ProfilePercentageView
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:ppv_arcBackgroundColor="#FFE0B2"
-        app:ppv_arcProgressEndColor="#E65100"
-        app:ppv_arcProgressStartColor="#E65100"
-        app:ppv_arcWidth="6dp"
-        app:ppv_currentValue="72"
-        app:ppv_imgBorderColor="@color/borderColor"
-        app:ppv_isRounded="true"
-        app:ppv_max="30000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
-    <TextView
-        android:id="@+id/time_txt"
+    <Button
+        android:id="@+id/cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="25:00"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressbar"
+        android:layout_marginTop="32dp"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressbar" />
+        app:layout_constraintTop_toBottomOf="@+id/start_btn" />
 
-    <AutoCompleteTextView
-        android:id="@+id/task_name_txt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="340dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="100dp"
-        android:hint="Tap to add"
-        app:layout_constraintBottom_toTopOf="@+id/progressbar"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
+        app:strokeColor="#FF6F00"
+        app:strokeWidth="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <com.ss.profilepercentageview.ProfilePercentageView
+                android:id="@+id/progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ppv_arcBackgroundColor="#FFE0B2"
+                app:ppv_arcProgressEndColor="#E65100"
+                app:ppv_arcProgressStartColor="#E65100"
+                app:ppv_arcWidth="6dp"
+                app:ppv_currentValue="72"
+                app:ppv_imgBorderColor="@color/borderColor"
+                app:ppv_isRounded="true"
+                app:ppv_max="1500000" />
+
+            <TextView
+                android:id="@+id/time_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25:00"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/progressbar"
+                app:layout_constraintStart_toStartOf="@+id/progressbar"
+                app:layout_constraintTop_toTopOf="@+id/progressbar" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mins    secs"
+                app:layout_constraintEnd_toEndOf="@+id/time_txt"
+                app:layout_constraintStart_toStartOf="@+id/time_txt"
+                app:layout_constraintTop_toBottomOf="@+id/time_txt" />
+
+            <TextView
+                android:id="@+id/task_name_txt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_horizontal"
+                android:hint="Complete the pomodoro app demo"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/progressbar"
+                app:layout_constraintEnd_toEndOf="@id/progressbar"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/progressbar"
+                app:layout_constraintTop_toBottomOf="@+id/progressbar"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/task_name_txt"
+                app:layout_constraintEnd_toEndOf="@+id/task_name_txt"
+                app:layout_constraintStart_toStartOf="@+id/task_name_txt">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
