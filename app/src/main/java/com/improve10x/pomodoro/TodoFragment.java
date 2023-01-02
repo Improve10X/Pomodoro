@@ -50,7 +50,6 @@ public class TodoFragment extends BaseFragment {
             @Override
             public void onEdit(Task task) {
                 Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override

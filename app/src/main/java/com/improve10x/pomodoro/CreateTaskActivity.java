@@ -52,9 +52,9 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private void handleSaveBtn() {
         binding.saveBtn.setOnClickListener(view -> {
-           String title = binding.addTaskTxt.getText().toString();
-           int expectedPomodoro = binding.addSeekbarSb.getProgress();
-           addTask(title, expectedPomodoro);
+            String title = binding.addTaskTxt.getText().toString();
+            int expectedPomodoro = binding.addSeekbarSb.getProgress();
+            addTask(title, expectedPomodoro);
             Intent intent = new Intent(this, TaskActivity.class);
             startActivity(intent);
         });
@@ -75,7 +75,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "success", Toast.LENGTH_SHORT).show();
                         finish();
-
                     }
                 });
     }
