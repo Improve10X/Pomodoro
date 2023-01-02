@@ -1,5 +1,6 @@
 package com.improve10x.pomodoro;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,23 @@ public class TodoFragment extends BaseFragment {
     private void toDoRv() {
         binding.todoRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         taskItemsAdapter = new TaskItemsAdapter();
+        taskItemsAdapter.setOnItemClickListener(new OnItemActionListener() {
+            @Override
+            public void onLongClicked(Task task) {
+                Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+                onLongClick(task);
+            }
+
+            @Override
+            public void onEdit(Task task) {
+
+            }
+
+            @Override
+            public void onDelete(String id) {
+
+            }
+        });
         taskItemsAdapter.setTaskItems(taskItems);
         binding.todoRv.setAdapter(taskItemsAdapter);
     }
@@ -58,5 +76,11 @@ public class TodoFragment extends BaseFragment {
                         }
                     }
                 });
+    }
+
+    private void onLongClick(Task task) {
+      EditDialogFragment editDialogFragment = new EditDialogFragment();
+      //editDialogFragment.show();
+        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }
 }

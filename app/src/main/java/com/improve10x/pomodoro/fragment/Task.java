@@ -6,4 +6,5 @@ public class Task {
 
     public String id;
     public String title;
+    public int expectedPomodoro;
 }
