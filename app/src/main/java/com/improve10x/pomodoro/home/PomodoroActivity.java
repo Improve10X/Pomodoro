@@ -56,7 +56,6 @@ public class PomodoroActivity extends AppCompatActivity {
                 binding.progressbar.setValue(0);
                // motivationalDialog();
                 successDialog();
-
             }
         }.start();
     }

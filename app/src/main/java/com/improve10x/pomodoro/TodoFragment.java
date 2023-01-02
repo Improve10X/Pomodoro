@@ -49,7 +49,7 @@ public class TodoFragment extends BaseFragment {
 
             @Override
             public void onEdit(Task task) {
-
+                Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -78,9 +78,11 @@ public class TodoFragment extends BaseFragment {
                 });
     }
 
-    public void onLongClick(Task task) {
+    private void onLongClick(Task task) {
       EditDialogFragment editDialogFragment = new EditDialogFragment();
-      //editDialogFragment.show();
-        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
+      Bundle bundle = new Bundle();
+      bundle.putSerializable(Constants.KEY_Task, task);
+      editDialogFragment.setArguments(bundle);
+      editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }
 }

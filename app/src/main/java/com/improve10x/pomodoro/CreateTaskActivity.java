@@ -52,25 +52,27 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private void handleSaveBtn() {
         binding.saveBtn.setOnClickListener(view -> {
-           String title = binding.addTaskTxt.getText().toString();
-           int expectedPomodoro = binding.addSeekbarSb.getProgress();
-           addTask(title, expectedPomodoro);
+            String title = binding.addTaskTxt.getText().toString();
+            int expectedPomodoro = binding.addSeekbarSb.getProgress();
+            addTask(title, expectedPomodoro);
             Intent intent = new Intent(this, TaskActivity.class);
             startActivity(intent);
         });
     }
 
     private void addTask(String title, int expectedPomodoro) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         Task task = new Task();
+        task.id = db.collection("tasks").document().getId();
         task.title = title;
         task.expectedPomodoro = expectedPomodoro;
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("tasks")
-                .add(task)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(task.id)
+                .set(task)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "success", Toast.LENGTH_SHORT).show();
                         finish();
                     }
