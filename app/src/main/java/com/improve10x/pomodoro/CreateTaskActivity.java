@@ -53,15 +53,18 @@ public class CreateTaskActivity extends AppCompatActivity {
     private void handleSaveBtn() {
         binding.saveBtn.setOnClickListener(view -> {
            String title = binding.addTaskTxt.getText().toString();
-           addTask(title);
+           int expectedPomodoro = binding.addSeekbarSb.getProgress();
+           addTask(title, expectedPomodoro);
             Intent intent = new Intent(this, TaskActivity.class);
             startActivity(intent);
         });
     }
 
-    private void addTask(String title) {
+    private void addTask(String title, int expectedPomodoro) {
         Task task = new Task();
         task.title = title;
+        task.expectedPomodoro = expectedPomodoro;
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("tasks")
                 .add(task)

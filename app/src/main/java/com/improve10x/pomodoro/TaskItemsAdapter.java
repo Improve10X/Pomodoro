@@ -14,10 +14,15 @@ import java.util.List;
 public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     private List<Task> taskItems;
+    private OnItemActionListener onItemActionListener;
 
     void setTaskItems(List<Task> taskItems) {
         this.taskItems = taskItems;
         notifyDataSetChanged();
+    }
+
+    void setOnItemClickListener(OnItemActionListener onItemActionListener) {
+        this.onItemActionListener = onItemActionListener;
     }
 
     @NonNull
@@ -32,6 +37,9 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = taskItems.get(position);
         holder.binding.todoListTxt.setText(task.title);
+        holder.itemView.setOnClickListener(view -> {
+            onItemActionListener.onLongClicked(task);
+        });
     }
 
     @Override
