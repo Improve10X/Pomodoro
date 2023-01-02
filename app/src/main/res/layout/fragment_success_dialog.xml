@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SuccessDialougeFragment">
+    tools:context=".SuccessDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Awesome! You Made it.\nKeep it up!"
+            android:textColor="#191616"
             android:textSize="20sp"
             android:textStyle="bold" />
 

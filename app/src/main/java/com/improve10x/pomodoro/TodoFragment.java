@@ -78,7 +78,7 @@ public class TodoFragment extends BaseFragment {
                 });
     }
 
-    private void onLongClick(Task task) {
+    public void onLongClick(Task task) {
       EditDialogFragment editDialogFragment = new EditDialogFragment();
       //editDialogFragment.show();
         editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());

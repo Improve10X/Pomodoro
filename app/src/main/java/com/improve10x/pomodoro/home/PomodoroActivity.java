@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 
+import com.improve10x.MotivationalDialogueFragment;
 import com.improve10x.pomodoro.SettingsActivity;
+import com.improve10x.pomodoro.SuccessDialogFragment;
 import com.improve10x.pomodoro.databinding.ActivityPomodoroBinding;
 import com.improve10x.pomodoro.fragment.TaskActivity;
 import com.improve10x.pomodoro.utils.DateUtils;
@@ -31,7 +33,7 @@ public class PomodoroActivity extends AppCompatActivity {
     }
 
     private void resetBreakInfo() {
-        long timeInMillis = 25 * 60 * 1000;
+        long timeInMillis = 5 * 10 * 1000;
         String remainingTime = DateUtils.getFormattedTime(timeInMillis);
         binding.progressbar.setValue((int)timeInMillis);
         binding.timeTxt.setText(remainingTime);
@@ -40,7 +42,7 @@ public class PomodoroActivity extends AppCompatActivity {
     }
 
     private void startTaskTimer() {
-        long timeInMillis = 25 * 60 * 1000;
+        long timeInMillis = 1 * 10 * 1000;
         timer = new CountDownTimer(timeInMillis ,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -52,6 +54,9 @@ public class PomodoroActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 binding.progressbar.setValue(0);
+               // motivationalDialog();
+                successDialog();
+
             }
         }.start();
     }
@@ -83,5 +88,15 @@ public class PomodoroActivity extends AppCompatActivity {
             timer.cancel();
             resetBreakInfo();
         });
+    }
+
+    //private void motivationalDialog() {
+        //MotivationalDialogueFragment motivationalDialogueFragment = new MotivationalDialogueFragment();
+       // motivationalDialogueFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
+   // }
+
+    private void successDialog() {
+        SuccessDialogFragment successDialogFragment = new SuccessDialogFragment();
+        successDialogFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
     }
 }
