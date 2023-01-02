@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
+            if(user != null) {
                 Intent intent = new Intent(this, PomodoroActivity.class);
                 startActivity(intent);
                 finish();
