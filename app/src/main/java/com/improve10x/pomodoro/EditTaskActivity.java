@@ -5,12 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.databinding.ActivityEditTaskBinding;
+import com.improve10x.pomodoro.fragment.Task;
+
+import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity {
 
     private ActivityEditTaskBinding binding;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +27,18 @@ public class EditTaskActivity extends AppCompatActivity {
         binding = ActivityEditTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Edit Task");
+        if (getIntent().hasExtra("tasks")) {
+            task = (Task) getIntent().getSerializableExtra("tasks");
+            showData();
+            editTask(task.id);
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return false;
         } else {
@@ -32,9 +47,21 @@ public class EditTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void handleSave(){
-        binding.saveBtn.setOnClickListener(view -> {
-            String editTask = binding.editTaskTxt.getText().toString();
-        });
+    private void showData() {
+        binding.editTaskTxt.setText(task.title);
+        binding.pomodoroEditSb.getProgress();
+    }
+
+    protected void editTask(String id) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("tasks")
+                .document(id)
+                .set(task)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(EditTaskActivity.this, "Successfully edited", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

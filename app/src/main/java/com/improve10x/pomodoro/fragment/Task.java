@@ -2,7 +2,9 @@ package com.improve10x.pomodoro.fragment;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
 
     public String id;
     public String title;
