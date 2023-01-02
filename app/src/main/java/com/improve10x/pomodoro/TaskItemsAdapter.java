@@ -38,6 +38,9 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         Task task = taskItems.get(position);
         holder.binding.todoListTxt.setText(task.title);
         holder.binding.getRoot().setOnClickListener(view -> {
+            onItemActionListener.onEdit(task);
+        });
+        holder.binding.getRoot().setOnClickListener(view -> {
             onItemActionListener.onLongClicked(task);
         });
     }

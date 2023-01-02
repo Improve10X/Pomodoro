@@ -9,4 +9,5 @@ public class Task implements Serializable {
     public String id;
     public String title;
     public int expectedPomodoro;
+    public int editPomodoros;
 }

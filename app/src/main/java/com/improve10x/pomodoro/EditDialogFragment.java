@@ -25,6 +25,8 @@ public class EditDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         binding = EditFragmentDialogBinding.inflate(getLayoutInflater());
         View view = (binding.getRoot());
+        Bundle bundle = getArguments();
+        task = (Task) bundle.getSerializable(Constants.KEY_Task);
         handleEdit(task);
         return view;
     }
@@ -32,7 +34,7 @@ public class EditDialogFragment extends DialogFragment {
     private void handleEdit(Task task) {
         binding.editBtn.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), EditTaskActivity.class);
-            intent.putExtra("tasks", task);
+            intent.putExtra(Constants.KEY_Task, task);
             startActivity(intent);
         });
     }

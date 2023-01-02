@@ -3,6 +3,7 @@ package com.improve10x.pomodoro;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,6 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.databinding.ActivityEditTaskBinding;
 import com.improve10x.pomodoro.fragment.Task;
+import com.improve10x.pomodoro.fragment.TaskActivity;
+
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.List;
 
@@ -27,12 +31,11 @@ public class EditTaskActivity extends AppCompatActivity {
         binding = ActivityEditTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Edit Task");
-        if (getIntent().hasExtra("tasks")) {
-            task = (Task) getIntent().getSerializableExtra("tasks");
+        if (getIntent().hasExtra(Constants.KEY_Task)) {
+            task = (Task) getIntent().getSerializableExtra(Constants.KEY_Task);
             showData();
             editTask(task.id);
         }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -43,7 +46,6 @@ public class EditTaskActivity extends AppCompatActivity {
             return false;
         } else {
             return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -53,15 +55,22 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     protected void editTask(String id) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("tasks")
-                .document(id)
-                .set(task)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(EditTaskActivity.this, "Successfully edited", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        binding.saveBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, TaskActivity.class);
+            task.title = binding.editTaskTxt.getText().toString();
+            task.editPomodoros = binding.pomodoroEditSb.getProgress();
+            startActivity(intent);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("tasks")
+                    .document(id)
+                    .set(task)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(EditTaskActivity.this, "Successfully edited", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+        });
     }
 }
