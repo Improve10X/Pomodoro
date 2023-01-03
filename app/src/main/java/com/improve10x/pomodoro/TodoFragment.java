@@ -48,13 +48,8 @@ public class TodoFragment extends BaseFragment {
             }
 
             @Override
-            public void onEdit(Task task) {
-                Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
             public void onDelete(String id) {
-
+                onDeleted(id);
             }
         });
         taskItemsAdapter.setTaskItems(taskItems);
@@ -84,5 +79,13 @@ public class TodoFragment extends BaseFragment {
       bundle.putSerializable(Constants.KEY_Task, task);
       editDialogFragment.setArguments(bundle);
       editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
+    }
+
+    private void onDeleted(String id) {
+        EditDialogFragment editDialogFragment = new EditDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.KEY_Task, id);
+        editDialogFragment.setArguments(bundle);
+        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }
 }
