@@ -1,6 +1,5 @@
 package com.improve10x.pomodoro;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.base.BaseFragment;
@@ -45,13 +46,23 @@ public class TodoFragment extends BaseFragment {
             public void onLongClicked(Task task) {
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 onLongClick(task);
+
             }
 
             @Override
             public void onDelete(String id) {
                 onDeleted(id);
+
+            }
+
+            @Override
+            public void onChecked(Task task) {
+                Toast.makeText(getActivity(), "Checked Successfull", Toast.LENGTH_SHORT).show();
+                onCheck(task);
+
             }
         });
+
         taskItemsAdapter.setTaskItems(taskItems);
         binding.todoRv.setAdapter(taskItemsAdapter);
     }
@@ -87,5 +98,28 @@ public class TodoFragment extends BaseFragment {
         bundle.putSerializable(Constants.KEY_Task, id);
         editDialogFragment.setArguments(bundle);
         editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
+    }
+
+
+
+    private void onCheck(Task task) {
+       task.status = "Complete";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("tasks").document(task.id)
+                .set(task)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Failed to update", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
     }
 }

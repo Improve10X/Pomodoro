@@ -7,4 +7,6 @@ public interface OnItemActionListener {
     void onLongClicked(Task task);
 
     void onDelete(String id);
+
+    void onChecked(Task task);
 }
