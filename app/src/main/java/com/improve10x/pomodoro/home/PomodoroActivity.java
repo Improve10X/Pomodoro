@@ -33,9 +33,10 @@ public class PomodoroActivity extends AppCompatActivity {
     }
 
     private void resetBreakInfo() {
-        long timeInMillis = 5 * 10 * 1000;
+        int timeInMillis = 5 * 10 * 1000;
         String remainingTime = DateUtils.getFormattedTime(timeInMillis);
-        binding.progressbar.setValue((int)timeInMillis);
+        binding.progressbar.setMaxValue(timeInMillis);
+        binding.progressbar.setValue(timeInMillis);
         binding.timeTxt.setText(remainingTime);
         binding.startBtn.setVisibility(View.VISIBLE);
         binding.cancelBtn.setVisibility(View.GONE);
