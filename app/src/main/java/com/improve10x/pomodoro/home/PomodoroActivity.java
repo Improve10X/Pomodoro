@@ -44,7 +44,7 @@ public class PomodoroActivity extends AppCompatActivity {
         handleStart();
         handleCancel();
         resetBreakInfo();
-        resetLongBreakInfo();
+        //resetLongBreakInfo();
         updateTask();
     }
 
@@ -52,15 +52,15 @@ public class PomodoroActivity extends AppCompatActivity {
      binding.taskNameTxt.setText(task.title);
    }
 
-   private void resetLongBreakInfo() {
-       int timeInMillis = 20 * 60 * 1000;
+  /* private void resetLongBreakInfo() {
+       int timeInMillis = 1 * 60 * 1000;
        String remainingTime = DateUtils.getFormattedTime(timeInMillis);
        binding.progressbar.setMaxValue(timeInMillis);
        binding.progressbar.setValue(timeInMillis);
        binding.timeTxt.setText(remainingTime);
        binding.startBtn.setVisibility(View.VISIBLE);
        binding.cancelBtn.setVisibility(View.GONE);
-   }
+   }*/
 
     private void resetBreakInfo() {
         int timeInMillis = 5 * 10 * 1000;
@@ -86,7 +86,6 @@ public class PomodoroActivity extends AppCompatActivity {
             public void onFinish() {
                 binding.progressbar.setValue(0);
                 updatePomodoro(task);
-                successDialog();
             }
         }.start();
     }
