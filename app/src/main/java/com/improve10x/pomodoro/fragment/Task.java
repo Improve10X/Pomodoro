@@ -10,4 +10,5 @@ public class Task implements Serializable {
     public String title;
     public int expectedPomodoro;
     public int editPomodoros;
+    public String status;
 }
