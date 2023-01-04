@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.MotivationalDialogueFragment;
 import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.CreateTaskActivity;
+import com.improve10x.pomodoro.PomodoroActivityActionListener;
 import com.improve10x.pomodoro.SettingsActivity;
 import com.improve10x.pomodoro.SuccessDialogFragment;
 import com.improve10x.pomodoro.databinding.ActivityPomodoroBinding;
@@ -22,12 +23,14 @@ import com.improve10x.pomodoro.fragment.Task;
 import com.improve10x.pomodoro.fragment.TaskActivity;
 import com.improve10x.pomodoro.utils.DateUtils;
 
-public class PomodoroActivity extends AppCompatActivity {
+public class PomodoroActivity extends AppCompatActivity implements PomodoroActivityActionListener {
 
     protected ActivityPomodoroBinding binding;
     private CountDownTimer timer;
     private Task task;
-
+    private static final int SHORT_BREAK_TIME_IN_MILLIS = 5 * 60 * 1000;
+    private static final int LONG_BREAK_TIME_IN_MILLIS = 20 * 60 * 1000;
+    private static final int POMODORO_TIME_IN_MILLIS = 25 * 60 * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +66,16 @@ public class PomodoroActivity extends AppCompatActivity {
    }*/
 
     private void resetBreakInfo() {
-        int timeInMillis = 5 * 10 * 1000;
-        String remainingTime = DateUtils.getFormattedTime(timeInMillis);
-        binding.progressbar.setMaxValue(timeInMillis);
-        binding.progressbar.setValue(timeInMillis);
+        String remainingTime = DateUtils.getFormattedTime(SHORT_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setMaxValue(SHORT_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setValue(SHORT_BREAK_TIME_IN_MILLIS);
         binding.timeTxt.setText(remainingTime);
         binding.startBtn.setVisibility(View.VISIBLE);
         binding.cancelBtn.setVisibility(View.GONE);
     }
 
     private void startTaskTimer() {
-        long timeInMillis = 1 * 10 * 1000;
-        timer = new CountDownTimer(timeInMillis ,1000) {
+        timer = new CountDownTimer(POMODORO_TIME_IN_MILLIS ,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 binding.progressbar.setValue((int)millisUntilFinished);
@@ -157,4 +158,18 @@ public class PomodoroActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void skipBreak() {
+        
+    }
+
+    @Override
+    public void startShortBreak() {
+        Toast.makeText(this, "Start Short Break", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startLongBreak() {
+
+    }
 }
