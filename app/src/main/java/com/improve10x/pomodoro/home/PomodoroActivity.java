@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.MotivationalDialogueFragment;
+import com.improve10x.PomodoroActivityActionListener;
 import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.CreateTaskActivity;
 import com.improve10x.pomodoro.SettingsActivity;
@@ -22,11 +23,14 @@ import com.improve10x.pomodoro.fragment.Task;
 import com.improve10x.pomodoro.fragment.TaskActivity;
 import com.improve10x.pomodoro.utils.DateUtils;
 
-public class PomodoroActivity extends AppCompatActivity {
+public class PomodoroActivity extends AppCompatActivity implements PomodoroActivityActionListener {
 
     protected ActivityPomodoroBinding binding;
     private CountDownTimer timer;
     private Task task;
+    private static final int START_BREAK_TIME_IN_MILLIS = 5 * 10 * 1000;
+    private static final int START_LONG_TIME_IN_MILLIS = 20 * 10 * 1000;
+    private static final int POMODORO_TIME_IN_MILLIS = 2 * 10 * 1000;
 
 
     @Override
@@ -63,18 +67,16 @@ public class PomodoroActivity extends AppCompatActivity {
    }*/
 
     private void resetBreakInfo() {
-        int timeInMillis = 5 * 10 * 1000;
-        String remainingTime = DateUtils.getFormattedTime(timeInMillis);
-        binding.progressbar.setMaxValue(timeInMillis);
-        binding.progressbar.setValue(timeInMillis);
+        String remainingTime = DateUtils.getFormattedTime(START_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setMaxValue(START_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setValue(START_BREAK_TIME_IN_MILLIS);
         binding.timeTxt.setText(remainingTime);
         binding.startBtn.setVisibility(View.VISIBLE);
         binding.cancelBtn.setVisibility(View.GONE);
     }
 
     private void startTaskTimer() {
-        long timeInMillis = 1 * 10 * 1000;
-        timer = new CountDownTimer(timeInMillis ,1000) {
+        timer = new CountDownTimer(POMODORO_TIME_IN_MILLIS ,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 binding.progressbar.setValue((int)millisUntilFinished);
@@ -157,4 +159,19 @@ public class PomodoroActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void skipBreak() {
+        Toast.makeText(this, "skip Break", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startShortBreak() {
+        Toast.makeText(this, "Start short Break", Toast.LENGTH_SHORT).show();
+        resetBreakInfo();
+    }
+
+    @Override
+    public void startLongBreak() {
+        Toast.makeText(this, "start long Break", Toast.LENGTH_SHORT).show();
+    }
 }

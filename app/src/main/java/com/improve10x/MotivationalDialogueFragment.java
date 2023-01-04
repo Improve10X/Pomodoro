@@ -20,19 +20,38 @@ import com.improve10x.pomodoro.home.PomodoroActivity;
 public class MotivationalDialogueFragment extends DialogFragment {
 
     private FragmentMotivationalDialogueBinding binding;
+    private PomodoroActivityActionListener actionListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        handleShortBreak();
         binding = FragmentMotivationalDialogueBinding.inflate(getLayoutInflater());
+        actionListener = (PomodoroActivityActionListener) getActivity();
+        handleShortBreak();
+        handleLongBreak();
+        handleSkipBreak();
         return binding.getRoot();
     }
 
     private void handleShortBreak() {
         binding.startShortBreakBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), PomodoroActivity.class);
-            startActivity(intent);
+            actionListener.startShortBreak();
+            dismiss();
+        });
+    }
+
+    private void handleLongBreak() {
+        binding.startLongBreakBtn.setOnClickListener(view -> {
+            actionListener.startLongBreak();
+            dismiss();
+        });
+    }
+
+    private void handleSkipBreak() {
+        binding.skipBreak.setOnClickListener(view -> {
+            actionListener.skipBreak();
+            dismiss();
         });
     }
 }
