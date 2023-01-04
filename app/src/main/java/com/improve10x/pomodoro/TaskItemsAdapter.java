@@ -44,12 +44,11 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         });
 
         holder.binding.getRoot().setOnClickListener(view -> {
-            onItemActionListener.onDelete(task.id);
+            onItemActionListener.onItemClick(task);
         });
         holder.binding.checkboxCb.setOnCheckedChangeListener((compoundButton, b) -> {
             onItemActionListener.onChecked(task);
         });
-
     }
 
     @Override

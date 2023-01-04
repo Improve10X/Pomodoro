@@ -23,4 +23,6 @@ public class MotivationalDialogueFragment extends DialogFragment {
         binding = FragmentMotivationalDialogueBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
+
+
 }
