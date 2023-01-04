@@ -35,8 +35,8 @@ public class PomodoroActivity extends AppCompatActivity {
         binding = ActivityPomodoroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-       if (getIntent().hasExtra(Constants.KEY_Task)) {
-            task = (Task) getIntent().getSerializableExtra(Constants.KEY_Task);
+       if (getIntent().hasExtra(Constants.KEY_TASK)) {
+            task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
             showData();
        }
         handleTaskList();

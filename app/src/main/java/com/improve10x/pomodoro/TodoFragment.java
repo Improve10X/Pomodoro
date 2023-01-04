@@ -93,14 +93,14 @@ public class TodoFragment extends BaseFragment {
 
     private void setTask(Task task) {
             Intent intent = new Intent(getActivity(), PomodoroActivity.class);
-            intent.putExtra(Constants.KEY_Task, task);
+            intent.putExtra(Constants.KEY_TASK, task);
             startActivity(intent);
     }
 
     private void onLongClick(Task task) {
       EditDialogFragment editDialogFragment = new EditDialogFragment();
       Bundle bundle = new Bundle();
-      bundle.putSerializable(Constants.KEY_Task, task);
+      bundle.putSerializable(Constants.KEY_TASK, task);
       editDialogFragment.setArguments(bundle);
       editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }

@@ -13,7 +13,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.improve10x.pomodoro.R;
 import com.improve10x.pomodoro.databinding.EditFragmentDialogBinding;
 import com.improve10x.pomodoro.fragment.Task;
 
@@ -29,7 +28,7 @@ public class EditDialogFragment extends DialogFragment {
         binding = EditFragmentDialogBinding.inflate(getLayoutInflater());
         View view = (binding.getRoot());
         Bundle bundle = getArguments();
-        task = (Task) bundle.getSerializable(Constants.KEY_Task);
+        task = (Task) bundle.getSerializable(Constants.KEY_TASK);
         handleEdit(task);
         deleteTask(task.id);
         return view;
@@ -38,7 +37,7 @@ public class EditDialogFragment extends DialogFragment {
     private void handleEdit(Task task) {
         binding.editBtn.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), EditTaskActivity.class);
-            intent.putExtra(Constants.KEY_Task, task);
+            intent.putExtra(Constants.KEY_TASK, task);
             startActivity(intent);
         });
     }
