@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     android:orientation="vertical"
-    tools:context="com.improve10x.pomodoro.EditDialogFragment">
+    tools:context="com.improve10x.pomodoro.addedittask.EditDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

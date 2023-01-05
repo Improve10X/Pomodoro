@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro.fragment;
+package com.improve10x.pomodoro.completedfragment;
 
 import android.os.Bundle;
 
@@ -12,13 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.databinding.FragmentCompletedBinding;
-import com.improve10x.pomodoro.fragment.CompletedTasksAdapter;
-import com.improve10x.pomodoro.fragment.Task;
 
 import java.util.ArrayList;
 import java.util.List;

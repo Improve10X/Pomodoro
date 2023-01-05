@@ -1,6 +1,4 @@
-package com.improve10x.pomodoro.fragment;
-
-import com.google.gson.annotations.SerializedName;
+package com.improve10x.pomodoro.addedittask;
 
 import java.io.Serializable;
 

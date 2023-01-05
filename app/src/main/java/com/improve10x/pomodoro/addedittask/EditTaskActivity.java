@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.addedittask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.databinding.ActivityEditTaskBinding;
-import com.improve10x.pomodoro.fragment.Task;
-import com.improve10x.pomodoro.fragment.TaskActivity;
 
 public class EditTaskActivity extends AppCompatActivity {
 

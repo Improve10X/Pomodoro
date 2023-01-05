@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.todofragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.improve10x.pomodoro.Constants;
+import com.improve10x.pomodoro.addedittask.EditDialogFragment;
+import com.improve10x.pomodoro.addedittask.OnItemActionListener;
 import com.improve10x.pomodoro.base.BaseFragment;
 import com.improve10x.pomodoro.databinding.FragmentTodoBinding;
-import com.improve10x.pomodoro.fragment.Task;
+import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro.fragment;
+package com.improve10x.pomodoro.addedittask;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.improve10x.pomodoro.CreateTaskActivity;
-import com.improve10x.pomodoro.ui.main.SectionsPagerAdapter;
 import com.improve10x.pomodoro.databinding.ActivityTaskBinding;
+import com.improve10x.pomodoro.ui.main.SectionsPagerAdapter;
 
 public class TaskActivity extends AppCompatActivity {
 

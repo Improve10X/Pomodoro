@@ -1,13 +1,9 @@
-package com.improve10x.pomodoro.fragment;
+package com.improve10x.pomodoro.completedfragment;
 
 
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.improve10x.pomodoro.databinding.CompletedItemBinding;
-import com.improve10x.pomodoro.databinding.FragmentCompletedBinding;
 
 
 public class CompletedTaskViewHolder extends RecyclerView.ViewHolder {

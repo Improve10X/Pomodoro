@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.improve10x.pomodoro.fragment.CompletedFragment;
-import com.improve10x.pomodoro.TodoFragment;
+import com.improve10x.pomodoro.completedfragment.CompletedFragment;
+import com.improve10x.pomodoro.todofragment.TodoFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
