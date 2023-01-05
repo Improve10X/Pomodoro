@@ -1,23 +1,37 @@
 package com.improve10x.pomodoro.home;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.MotivationalDialogueFragment;
+import com.improve10x.PomodoroActivityActionListener;
+import com.improve10x.pomodoro.Constants;
+import com.improve10x.pomodoro.CreateTaskActivity;
 import com.improve10x.pomodoro.SettingsActivity;
 import com.improve10x.pomodoro.SuccessDialogFragment;
 import com.improve10x.pomodoro.databinding.ActivityPomodoroBinding;
+import com.improve10x.pomodoro.fragment.Task;
 import com.improve10x.pomodoro.fragment.TaskActivity;
 import com.improve10x.pomodoro.utils.DateUtils;
 
-public class PomodoroActivity extends AppCompatActivity {
+public class PomodoroActivity extends AppCompatActivity implements PomodoroActivityActionListener {
 
     protected ActivityPomodoroBinding binding;
     private CountDownTimer timer;
+    private Task task;
+    private static final int START_BREAK_TIME_IN_MILLIS = 5 * 10 * 1000;
+    private static final int START_LONG_TIME_IN_MILLIS = 20 * 10 * 1000;
+    private static final int POMODORO_TIME_IN_MILLIS = 2 * 10 * 1000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +39,44 @@ public class PomodoroActivity extends AppCompatActivity {
         binding = ActivityPomodoroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
+       if (getIntent().hasExtra(Constants.KEY_TASK)) {
+            task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
+            showData();
+       }
         handleTaskList();
         handleSettings();
         handleStart();
         handleCancel();
         resetBreakInfo();
+        //resetLongBreakInfo();
+        updateTask();
     }
 
+    private void showData() {
+     binding.taskNameTxt.setText(task.title);
+   }
+
+  /* private void resetLongBreakInfo() {
+       int timeInMillis = 1 * 60 * 1000;
+       String remainingTime = DateUtils.getFormattedTime(timeInMillis);
+       binding.progressbar.setMaxValue(timeInMillis);
+       binding.progressbar.setValue(timeInMillis);
+       binding.timeTxt.setText(remainingTime);
+       binding.startBtn.setVisibility(View.VISIBLE);
+       binding.cancelBtn.setVisibility(View.GONE);
+   }*/
+
     private void resetBreakInfo() {
-        int timeInMillis = 5 * 10 * 1000;
-        String remainingTime = DateUtils.getFormattedTime(timeInMillis);
-        binding.progressbar.setMaxValue(timeInMillis);
-        binding.progressbar.setValue(timeInMillis);
+        String remainingTime = DateUtils.getFormattedTime(START_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setMaxValue(START_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setValue(START_BREAK_TIME_IN_MILLIS);
         binding.timeTxt.setText(remainingTime);
         binding.startBtn.setVisibility(View.VISIBLE);
         binding.cancelBtn.setVisibility(View.GONE);
     }
 
     private void startTaskTimer() {
-        long timeInMillis = 1 * 10 * 1000;
-        timer = new CountDownTimer(timeInMillis ,1000) {
+        timer = new CountDownTimer(POMODORO_TIME_IN_MILLIS ,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 binding.progressbar.setValue((int)millisUntilFinished);
@@ -55,8 +87,7 @@ public class PomodoroActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 binding.progressbar.setValue(0);
-               // motivationalDialog();
-                successDialog();
+                updatePomodoro(task);
             }
         }.start();
     }
@@ -90,13 +121,57 @@ public class PomodoroActivity extends AppCompatActivity {
         });
     }
 
-    //private void motivationalDialog() {
-        //MotivationalDialogueFragment motivationalDialogueFragment = new MotivationalDialogueFragment();
-       // motivationalDialogueFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
-   // }
+    private void motivationalDialog() {
+        MotivationalDialogueFragment motivationalDialogueFragment = new MotivationalDialogueFragment();
+       motivationalDialogueFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
+   }
 
     private void successDialog() {
         SuccessDialogFragment successDialogFragment = new SuccessDialogFragment();
         successDialogFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
+    }
+
+   private void updateTask() {
+        binding.taskNameTxt.setOnClickListener(view -> {
+            binding.taskNameTxt.getText().toString();
+            Intent intent = new Intent(this, CreateTaskActivity.class);
+            startActivity(intent);
+        });
+   }
+
+    private void updatePomodoro(Task task) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        task.noOfPomodoros = task.noOfPomodoros + 1;
+        db.collection("tasks").document(task.id)
+                .set(task)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(PomodoroActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                        motivationalDialog();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(PomodoroActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void skipBreak() {
+        Toast.makeText(this, "skip Break", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startShortBreak() {
+        Toast.makeText(this, "Start short Break", Toast.LENGTH_SHORT).show();
+        resetBreakInfo();
+    }
+
+    @Override
+    public void startLongBreak() {
+        Toast.makeText(this, "start long Break", Toast.LENGTH_SHORT).show();
     }
 }

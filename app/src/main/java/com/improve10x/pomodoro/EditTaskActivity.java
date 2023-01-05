@@ -8,17 +8,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.databinding.ActivityEditTaskBinding;
 import com.improve10x.pomodoro.fragment.Task;
 import com.improve10x.pomodoro.fragment.TaskActivity;
-
-import org.checkerframework.checker.units.qual.C;
-
-import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity {
 
@@ -31,8 +25,8 @@ public class EditTaskActivity extends AppCompatActivity {
         binding = ActivityEditTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Edit Task");
-        if (getIntent().hasExtra(Constants.KEY_Task)) {
-            task = (Task) getIntent().getSerializableExtra(Constants.KEY_Task);
+        if (getIntent().hasExtra(Constants.KEY_TASK)) {
+            task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
             showData();
             editTask(task.id);
         }

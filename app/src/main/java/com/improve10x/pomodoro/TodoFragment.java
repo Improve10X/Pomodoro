@@ -1,5 +1,6 @@
 package com.improve10x.pomodoro;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.base.BaseFragment;
 import com.improve10x.pomodoro.databinding.FragmentTodoBinding;
 import com.improve10x.pomodoro.fragment.Task;
+import com.improve10x.pomodoro.home.PomodoroActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,38 +30,43 @@ public class TodoFragment extends BaseFragment {
     private ArrayList<Task> taskItems = new ArrayList<>();
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
+    private Task task;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
-        fetchData();
         toDoRv();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchData();
     }
 
     private void toDoRv() {
         binding.todoRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         taskItemsAdapter = new TaskItemsAdapter();
+
         taskItemsAdapter.setOnItemClickListener(new OnItemActionListener() {
             @Override
             public void onLongClicked(Task task) {
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 onLongClick(task);
-
             }
 
             @Override
-            public void onDelete(String id) {
-                onDeleted(id);
-
+            public void onItemClick(Task task) {
+                Toast.makeText(getActivity(), "777777", Toast.LENGTH_SHORT).show();
+                setTask(task);
             }
 
             @Override
             public void onChecked(Task task) {
-                Toast.makeText(getActivity(), "Checked Successfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Checked Successfully", Toast.LENGTH_SHORT).show();
                 onCheck(task);
-
             }
         });
 
@@ -84,21 +91,27 @@ public class TodoFragment extends BaseFragment {
                 });
     }
 
+    private void setTask(Task task) {
+            Intent intent = new Intent(getActivity(), PomodoroActivity.class);
+            intent.putExtra(Constants.KEY_TASK, task);
+            startActivity(intent);
+    }
+
     private void onLongClick(Task task) {
       EditDialogFragment editDialogFragment = new EditDialogFragment();
       Bundle bundle = new Bundle();
-      bundle.putSerializable(Constants.KEY_Task, task);
+      bundle.putSerializable(Constants.KEY_TASK, task);
       editDialogFragment.setArguments(bundle);
       editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }
-
-    private void onDeleted(String id) {
-        EditDialogFragment editDialogFragment = new EditDialogFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.KEY_Task, id);
-        editDialogFragment.setArguments(bundle);
-        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
-    }
+//
+//    private void onDeleted(String id) {
+//        EditDialogFragment editDialogFragment = new EditDialogFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable(Constants.KEY_Task, id);
+//        editDialogFragment.setArguments(bundle);
+//        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
+//    }
 
 
 
@@ -120,6 +133,5 @@ public class TodoFragment extends BaseFragment {
 
                     }
                 });
-
     }
 }
