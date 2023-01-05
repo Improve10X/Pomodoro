@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Pomodoro"
         tools:targetApi="31">
         <activity
-            android:name=".EditTaskActivity"
+            android:name=".addedittask.EditTaskActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -29,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragment.TaskActivity"
+            android:name=".addedittask.TaskActivity"
             android:exported="true"
             android:label="@string/title_activity_task">
             <meta-data
@@ -44,7 +44,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CreateTaskActivity"
+            android:name=".addedittask.CreateTaskActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

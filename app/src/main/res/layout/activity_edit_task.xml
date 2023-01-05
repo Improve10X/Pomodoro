@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context="com.improve10x.pomodoro.EditTaskActivity">
+    tools:context="com.improve10x.pomodoro.addedittask.EditTaskActivity">
 
     <TextView
         android:id="@+id/textView3"

@@ -1,6 +1,6 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.addedittask;
 
-import com.improve10x.pomodoro.fragment.Task;
+import com.improve10x.pomodoro.addedittask.Task;
 
 public interface OnItemActionListener {
 

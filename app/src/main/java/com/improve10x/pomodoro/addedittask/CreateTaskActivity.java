@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.addedittask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,11 +9,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.pomodoro.databinding.ActivityCreateTaskBinding;
-import com.improve10x.pomodoro.fragment.Task;
-import com.improve10x.pomodoro.fragment.TaskActivity;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
 public class CreateTaskActivity extends AppCompatActivity {

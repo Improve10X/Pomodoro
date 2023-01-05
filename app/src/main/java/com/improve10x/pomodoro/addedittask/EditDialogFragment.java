@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.addedittask;
 
 
 import android.content.Intent;
@@ -13,8 +13,10 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.improve10x.pomodoro.Constants;
+import com.improve10x.pomodoro.addedittask.EditTaskActivity;
+import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.databinding.EditFragmentDialogBinding;
-import com.improve10x.pomodoro.fragment.Task;
 
 
 public class EditDialogFragment extends DialogFragment {

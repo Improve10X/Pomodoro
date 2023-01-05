@@ -1,4 +1,4 @@
-package com.improve10x;
+package com.improve10x.pomodoro.dialogfragment;
 
 public interface PomodoroActivityActionListener {
 

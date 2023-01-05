@@ -1,4 +1,4 @@
-package com.improve10x.pomodoro;
+package com.improve10x.pomodoro.todofragment;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,8 +6,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.improve10x.pomodoro.addedittask.OnItemActionListener;
 import com.improve10x.pomodoro.databinding.TodoItemBinding;
-import com.improve10x.pomodoro.fragment.Task;
+import com.improve10x.pomodoro.addedittask.Task;
 
 import java.util.List;
 
