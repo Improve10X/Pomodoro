@@ -28,10 +28,11 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     protected ActivityPomodoroBinding binding;
     private CountDownTimer timer;
     private Task task;
+    private String timerType = "Pomodoro";
     private static final int RESET_BREAK_TIME_IN_MILLIS = 25 * 60 * 1000;
     private static final int START_LONG_BREAK_TIME_IN_MILLIS = 20 * 60 * 1000;
     private static final int START_SHORT_BREAK_TIME_IN_MILLIS = 5 * 60 * 1000;
-    private static final int START_TASK_TIMER_IN_MILLIS = 1 * 60 * 1000;
+    //private static final int START_TIMER_IN_MILLIS = 1 * 60 * 1000;
 
 
     @Override
@@ -63,6 +64,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
        binding.timeTxt.setText(remainingTime);
        binding.startBtn.setVisibility(View.VISIBLE);
        binding.cancelBtn.setVisibility(View.GONE);
+       timerType = "Short Break";
    }
 
    private void resetLongBreakInfo() {
@@ -72,6 +74,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
        binding.timeTxt.setText(remainingTime);
        binding.startBtn.setVisibility(View.VISIBLE);
        binding.cancelBtn.setVisibility(View.GONE);
+       timerType = "Long Break";
    }
 
     private void resetBreakInfo() {
@@ -81,15 +84,17 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding.timeTxt.setText(remainingTime);
         binding.startBtn.setVisibility(View.VISIBLE);
         binding.cancelBtn.setVisibility(View.GONE);
+        timerType = "Reset Break";
     }
 
-    private void taskTimer() {
-        timer = new CountDownTimer(START_TASK_TIMER_IN_MILLIS,1000) {
+    private void startTimer(int millis) {
+        timer = new CountDownTimer(millis,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 binding.progressbar.setValue((int)millisUntilFinished);
                 String remainingTime = DateUtils.getFormattedTime(millisUntilFinished);
                 binding.timeTxt.setText(remainingTime);
+                timerType = "Start Timer";
             }
 
             @Override
@@ -118,7 +123,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding.startBtn.setOnClickListener(v -> {
             binding.cancelBtn.setVisibility(View.VISIBLE);
             binding.startBtn.setVisibility(View.GONE);
-            taskTimer();
+            startTimer(10000);
         });
     }
 
@@ -157,7 +162,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
                     public void onSuccess(Void unused) {
                         Toast.makeText(PomodoroActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
                         //motivationalDialog();
-                        showSuccessDialog();
+                         showSuccessDialog();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -176,7 +181,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     @Override
     public void startShortBreak() {
         Toast.makeText(this, "Start short Break", Toast.LENGTH_SHORT).show();
-        //resetBreakInfo();
+        resetBreakInfo();
         startShortBreakInfo();
     }
 
