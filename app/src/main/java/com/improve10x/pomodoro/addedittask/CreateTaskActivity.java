@@ -28,7 +28,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Create Task");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         handleSaveBtn();
-        handleStartBtn(task);
+        handleStartBtn();
     }
 
     @Override
@@ -41,11 +41,11 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void handleStartBtn(Task task) {
+    private void handleStartBtn() {
         binding.startBtn.setOnClickListener(view -> {
-            binding.addTaskTxt.getText().toString();
+            String taskName =  binding.addTaskTxt.getText().toString();
             Intent intent = new Intent(this, PomodoroActivity.class);
-            //intent.putExtra(Constants.KEY_Task, task);
+            intent.putExtra("taskName", taskName);
             Toast.makeText(this, "Successfully added task", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         });
