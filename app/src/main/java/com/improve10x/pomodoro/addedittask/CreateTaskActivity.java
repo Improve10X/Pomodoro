@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.pomodoro.databinding.ActivityCreateTaskBinding;
 import com.improve10x.pomodoro.home.PomodoroActivity;
@@ -61,13 +63,15 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private void addTask(String title, int expectedPomodoro) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Task task = new Task();
-        task.id = db.collection("tasks").document().getId();
+        task.id = db.collection("/users/" + user.getUid() + "/tasks").document().getId();
         task.title = title;
+        task.status = "pending";
         task.expectedPomodoro = expectedPomodoro;
 
-        db.collection("tasks")
-                .document(task.id)
+       db.collection("/users/" + user.getUid() + "/tasks")
+               .document(task.id)
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

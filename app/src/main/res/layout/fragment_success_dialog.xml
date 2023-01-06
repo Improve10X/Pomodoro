@@ -60,7 +60,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/start_short_break_btn"
+                android:id="@+id/start_long_break_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,7 +70,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/start_long_break_btn"
+                android:id="@+id/start_short_break_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
