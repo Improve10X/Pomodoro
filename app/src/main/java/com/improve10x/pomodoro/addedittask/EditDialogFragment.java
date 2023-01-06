@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.addedittask.EditTaskActivity;
@@ -47,7 +49,8 @@ public class EditDialogFragment extends DialogFragment {
     private void deleteTask(String id) {
         binding.deleteBtn.setOnClickListener(view -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("tasks")
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            db.collection("/users/" + user.getUid() + "/tasks")
                     .document(id)
                     .delete()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

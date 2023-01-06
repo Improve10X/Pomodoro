@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.addedittask.Task;
@@ -53,7 +55,9 @@ public class CompletedFragment extends Fragment {
 
     private void getData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("tasks")
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("/users/" + user.getUid() + "/tasks")
+                .whereEqualTo("status", "Completed")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

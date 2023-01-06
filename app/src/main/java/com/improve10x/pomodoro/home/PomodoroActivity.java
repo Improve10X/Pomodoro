@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.pomodoro.dialogfragment.MotivationalDialogueFragment;
 import com.improve10x.pomodoro.dialogfragment.PomodoroActivityActionListener;
@@ -29,9 +31,9 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     private CountDownTimer timer;
     private Task task;
     private String timerType = "Pomodoro";
-    private static final int START_LONG_BREAK_TIME_IN_MILLIS = 5 * 10 * 1000;
-    private static final int START_SHORT_BREAK_TIME_IN_MILLIS = 2 * 10 * 1000;
-    private static final int POMODORO_TIMER_IN_MILLIS = 1 * 60 * 1000;
+    private static final int START_LONG_BREAK_TIME_IN_MILLIS = 1 * 5 * 1000;
+    private static final int START_SHORT_BREAK_TIME_IN_MILLIS = 1 * 2 * 1000;
+    private static final int POMODORO_TIMER_IN_MILLIS = 1 * 3 * 1000;
 
 
     @Override
@@ -98,7 +100,11 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
             @Override
             public void onFinish() {
                 binding.progressbar.setValue(0);
-                updatePomodoro(task);
+                if(timerType.equalsIgnoreCase("Pomodoro")) {
+                    updatePomodoro(task);
+                } else {
+                    resetPomodoroInfo();
+                }
             }
         }.start();
     }
@@ -128,6 +134,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
             } else {
                 startTimer(START_LONG_BREAK_TIME_IN_MILLIS);
             }
+            //use condition for initial start
         });
     }
 
@@ -158,15 +165,23 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
 
     private void updatePomodoro(Task task) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         task.noOfPomodoros = task.noOfPomodoros + 1;
-        db.collection("tasks").document(task.id)
+        db.collection("/users/" + user.getUid() + "/tasks").document(task.id)
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PomodoroActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                       showMotivationalDialog();
-                         //showSuccessDialog();
+                        if(task.noOfPomodoros == 1){
+                            showMotivationalDialog();
+                        }else if(task.noOfPomodoros == 2){
+                            showMotivationalDialog();
+                        }else if(task.noOfPomodoros == 3){
+                            showMotivationalDialog();
+                        }else {
+                            showSuccessDialog();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
