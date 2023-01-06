@@ -38,6 +38,7 @@ public class CompletedFragment extends Fragment {
         completedRv();
         return binding.getRoot();
 
+
     }
 
     private void setupData() {
@@ -65,12 +66,22 @@ public class CompletedFragment extends Fragment {
                         if(task.isSuccessful()) {
                             List<Task> tasks = task.getResult().toObjects(Task.class);
                             completedTasksAdapter.setData(tasks);
+
+
                         } else {
                             Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
+    }
+
+    private void setImageUrls() {
+        if(task.noOfPomodoros == 2) {
+            task.imageUrl = "https://t4.ftcdn.net/jpg/00/58/99/07/360_F_58990717_6GkOtlWF1CirNp4cM7v5desXc8Ci8o64.jpg";
+        } else  {
+            task.imageUrl = "https://as2.ftcdn.net/v2/jpg/02/85/87/73/1000_F_285877383_4Z5fskFgRrjMpUcUf2zNsX8Qfpf28AK3.jpg";
+        }
     }
 
 }
