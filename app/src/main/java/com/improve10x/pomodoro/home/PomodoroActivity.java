@@ -30,7 +30,6 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     protected ActivityPomodoroBinding binding;
     private CountDownTimer timer;
     private Task task;
-    private String taskName;
     private String timerType = "Pomodoro";
     private static final int START_LONG_BREAK_TIME_IN_MILLIS = 1 * 5 * 1000;
     private static final int START_SHORT_BREAK_TIME_IN_MILLIS = 1 * 2 * 1000;
@@ -43,18 +42,20 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding = ActivityPomodoroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-        taskName = getIntent().getStringExtra("taskName");
+       if (getIntent().hasExtra(Constants.KEY_TASK)) {
+            task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
+            showData();
+       }
         handleTaskList();
         handleSettings();
         handleStart();
         handleCancel();
         resetPomodoroInfo();
         updateTask();
-        showData();
     }
 
     private void showData() {
-     binding.taskNameTxt.setText(taskName);
+     binding.taskNameTxt.setText(task.title);
    }
 
    private void startShortBreakInfo() {
