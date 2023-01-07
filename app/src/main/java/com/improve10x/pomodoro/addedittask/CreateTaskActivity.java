@@ -46,11 +46,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         binding.startBtn.setOnClickListener(view -> {
             String taskName = binding.addTaskTxt.getText().toString();
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
-            //addTask(taskName, expectedPomodoro);
-            Intent intent = new Intent(this, PomodoroActivity.class);
-            //intent.putExtra("taskName", taskName);
-            Toast.makeText(this, "Successfully added task", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+            addTask(taskName, expectedPomodoro);
+
         });
     }
 
@@ -81,6 +78,9 @@ public class CreateTaskActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CreateTaskActivity.this , PomodoroActivity.class);
+                        intent.putExtra(Constants.KEY_TASK, task);
+                        startActivity(intent);
                         finish();
                     }
                 });
