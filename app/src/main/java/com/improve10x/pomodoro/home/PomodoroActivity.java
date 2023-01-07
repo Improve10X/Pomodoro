@@ -56,6 +56,19 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
 
     private void showData() {
      binding.taskNameTxt.setText(task.title);
+     binding.countDownBar.setNumStars(task.expectedPomodoro);
+     if(task.noOfPomodoros > task.expectedPomodoro) {
+         binding.countDownBar.setRating(task.expectedPomodoro);
+     }else {
+         binding.countDownBar.setRating(task.noOfPomodoros);
+     }
+     if (task.noOfPomodoros > task.expectedPomodoro) {
+         binding.countDownExtraBar.setVisibility(View.VISIBLE);
+         binding.countDownExtraBar.setNumStars(task.noOfPomodoros - task.expectedPomodoro);
+         binding.countDownExtraBar.setRating(task.noOfPomodoros - task.expectedPomodoro);
+     } else {
+         binding.countDownExtraBar.setVisibility(View.GONE);
+     }
    }
 
    private void startShortBreakInfo() {
@@ -134,7 +147,6 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
             } else {
                 startTimer(START_LONG_BREAK_TIME_IN_MILLIS);
             }
-            //use condition for initial start
         });
     }
 
@@ -173,6 +185,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PomodoroActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                        showData();
                         if(task.noOfPomodoros == 1){
                             showMotivationalDialog();
                         }else if(task.noOfPomodoros == 2){
