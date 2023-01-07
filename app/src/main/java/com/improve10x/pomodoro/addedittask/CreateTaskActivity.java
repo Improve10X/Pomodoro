@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.databinding.ActivityCreateTaskBinding;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
@@ -28,7 +29,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Create Task");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         handleSaveBtn();
-        handleStartBtn(task);
+        handleStartBtn();
     }
 
     @Override
@@ -41,13 +42,12 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void handleStartBtn(Task task) {
+    private void handleStartBtn() {
         binding.startBtn.setOnClickListener(view -> {
-            binding.addTaskTxt.getText().toString();
-            Intent intent = new Intent(this, PomodoroActivity.class);
-            //intent.putExtra(Constants.KEY_Task, task);
-            Toast.makeText(this, "Successfully added task", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+            String taskName = binding.addTaskTxt.getText().toString();
+            int expectedPomodoro = binding.addSeekbarSb.getProgress();
+            addTask(taskName, expectedPomodoro);
+
         });
     }
 
@@ -69,6 +69,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         task.title = title;
         task.status = "pending";
         task.expectedPomodoro = expectedPomodoro;
+        task.noOfPomodoros = 0;
 
        db.collection("/users/" + user.getUid() + "/tasks")
                .document(task.id)
@@ -77,6 +78,9 @@ public class CreateTaskActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CreateTaskActivity.this , PomodoroActivity.class);
+                        intent.putExtra(Constants.KEY_TASK, task);
+                        startActivity(intent);
                         finish();
                     }
                 });

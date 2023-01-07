@@ -42,10 +42,10 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding = ActivityPomodoroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-       if (getIntent().hasExtra(Constants.KEY_TASK)) {
+        if(getIntent().hasExtra(Constants.KEY_TASK)) {
             task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
             showData();
-       }
+        }
         handleTaskList();
         handleSettings();
         handleStart();

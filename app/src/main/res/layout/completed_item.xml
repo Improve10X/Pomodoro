@@ -14,13 +14,13 @@
         android:padding="12dp">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/complete_image_url_img"
             android:layout_width="66dp"
             android:layout_height="41dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pomodoro"
-            tools:layout_editor_absoluteX="-8dp" />
+            app:srcCompat="@drawable/pomodoro" />
 
         <TextView
             android:id="@+id/completed_list_txt"
@@ -32,7 +32,7 @@
             android:text="We are from team improve 10X and doing our visuly work hope it goes will We are from team improve 10X and doing our visuly work hope it goes will"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/complete_image_url_img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
