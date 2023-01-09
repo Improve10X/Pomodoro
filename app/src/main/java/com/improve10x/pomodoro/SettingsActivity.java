@@ -7,15 +7,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.improve10x.pomodoro.addedittask.CreateTaskActivity;
 import com.improve10x.pomodoro.databinding.ActivitySettingsBinding;
@@ -26,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SettingsItem settingsItem;
     private int ringingVolume;
     private int tickingVolume;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         handleSave();
+        fetchData();
     }
 
     @Override
@@ -78,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(SettingsActivity.this, "success", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
     }
@@ -87,7 +94,40 @@ public class SettingsActivity extends AppCompatActivity {
             ringingVolume = binding.ringingVolumeSb.getProgress();
             tickingVolume = binding.tickingVolumeSb.getProgress();
             handleSoundVolumes(ringingVolume, tickingVolume);
-
         });
+    }
+
+    private void fetchData() {
+        displayProgressBar();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("/users/" + user.getUid() + "/settings")
+                .document("doc")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Toast.makeText(SettingsActivity.this, "Save", Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
+                        SettingsItem settingsItem = documentSnapshot.toObject(SettingsItem.class);
+                        binding.tickingVolumeSb.setProgress(settingsItem.tickingVolume);
+                        binding.ringingVolumeSb.setProgress(settingsItem.ringingVolume);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        hideProgressBar();
+
+                    }
+                });
+    }
+
+    private void displayProgressBar() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        binding.progressBar.setVisibility(View.GONE);
     }
 }
