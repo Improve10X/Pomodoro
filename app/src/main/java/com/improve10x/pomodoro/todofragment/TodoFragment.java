@@ -111,16 +111,6 @@ public class TodoFragment extends BaseFragment {
       editDialogFragment.setArguments(bundle);
       editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
     }
-//
-//    private void onDeleted(String id) {
-//        EditDialogFragment editDialogFragment = new EditDialogFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable(Constants.KEY_Task, id);
-//        editDialogFragment.setArguments(bundle);
-//        editDialogFragment.show(getActivity().getSupportFragmentManager(), this.getClass().getSimpleName());
-//    }
-
-
 
     private void onCheck(Task task) {
        task.status = "Completed";

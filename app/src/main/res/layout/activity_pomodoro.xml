@@ -136,11 +136,13 @@
 
                 <RatingBar
                     android:id="@+id/count_down_bar"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <RatingBar
                     android:id="@+id/count_down_extra_bar"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />

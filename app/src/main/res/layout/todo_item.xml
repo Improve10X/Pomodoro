@@ -55,27 +55,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/drag_ib">
 
-            <ImageView
-                android:id="@+id/imageView3"
+            <RatingBar
+                android:id="@+id/count_bar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+                android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/imageView4"
+            <RatingBar
+                android:id="@+id/count_extra_bar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
         </LinearLayout>
 
