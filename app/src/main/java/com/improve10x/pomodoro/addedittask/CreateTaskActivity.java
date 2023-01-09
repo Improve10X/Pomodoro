@@ -47,6 +47,8 @@ public class CreateTaskActivity extends AppCompatActivity {
             String taskName = binding.addTaskTxt.getText().toString();
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
             addTask(taskName, expectedPomodoro);
+            Intent intent = new Intent(this, PomodoroActivity.class);
+            startActivity(intent);
 
         });
     }
@@ -56,8 +58,9 @@ public class CreateTaskActivity extends AppCompatActivity {
             String title = binding.addTaskTxt.getText().toString();
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
             addTask(title, expectedPomodoro);
-            Intent intent = new Intent(this, TaskActivity.class);
-            startActivity(intent);
+           // Intent intent = new Intent(this, TaskActivity.class);
+            //startActivity(intent);
+            finish();
         });
     }
 

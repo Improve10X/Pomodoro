@@ -8,14 +8,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.improve10x.pomodoro.addedittask.CreateTaskActivity;
 import com.improve10x.pomodoro.databinding.ActivitySettingsBinding;
+import com.improve10x.pomodoro.home.PomodoroActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
+    private SettingsItem settingsItem;
+    private int ringingVolume;
+    private int tickingVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        handleSave();
     }
 
     @Override
@@ -32,7 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.settings_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -52,5 +61,33 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void handleSoundVolumes(int ringingVolume, int tickingVolume) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        SettingsItem settingsItem = new SettingsItem();
+        db.collection("/users/" + user.getUid() + "/settings").document().getId();
+        settingsItem.ringingVolume = ringingVolume;
+        settingsItem.tickingVolume = tickingVolume;
+
+        db.collection("/users/" + user.getUid() + "/settings")
+                .document("doc")
+                .set(settingsItem)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(SettingsActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void handleSave() {
+        binding.saveBtn.setOnClickListener(view -> {
+            ringingVolume = binding.ringingVolumeSb.getProgress();
+            tickingVolume = binding.tickingVolumeSb.getProgress();
+            handleSoundVolumes(ringingVolume, tickingVolume);
+
+        });
     }
 }
