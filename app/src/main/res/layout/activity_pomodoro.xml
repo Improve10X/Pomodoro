@@ -134,30 +134,22 @@
                 app:layout_constraintEnd_toEndOf="@+id/task_name_txt"
                 app:layout_constraintStart_toStartOf="@+id/task_name_txt">
 
-                <ImageView
-                    android:id="@+id/imageView3"
+                <RatingBar
+                    android:id="@+id/count_down_bar"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+                    android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <RatingBar
+                    android:id="@+id/count_down_extra_bar"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_person_pin_circle_24" />
+                    android:visibility="gone" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

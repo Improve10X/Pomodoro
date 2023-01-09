@@ -42,7 +42,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding = ActivityPomodoroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-        if(getIntent().hasExtra(Constants.KEY_TASK)) {
+        if (getIntent().hasExtra(Constants.KEY_TASK)) {
             task = (Task) getIntent().getSerializableExtra(Constants.KEY_TASK);
             showData();
         }
@@ -55,28 +55,38 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     }
 
     private void showData() {
-     binding.taskNameTxt.setText(task.title);
-   }
+        binding.taskNameTxt.setText(task.title);
+        binding.countDownBar.setNumStars(task.expectedPomodoro);
+        if (task.noOfPomodoros > task.expectedPomodoro) {
+            binding.countDownBar.setRating(task.expectedPomodoro);
+            binding.countDownExtraBar.setVisibility(View.VISIBLE);
+            binding.countDownExtraBar.setNumStars(task.noOfPomodoros - task.expectedPomodoro);
+            binding.countDownExtraBar.setRating(task.noOfPomodoros - task.expectedPomodoro);
+        } else {
+            binding.countDownBar.setRating(task.noOfPomodoros);
+            binding.countDownExtraBar.setVisibility(View.GONE);
+        }
+    }
 
-   private void startShortBreakInfo() {
-       String remainingTime = DateUtils.getFormattedTime(START_SHORT_BREAK_TIME_IN_MILLIS);
-       binding.progressbar.setMaxValue(START_SHORT_BREAK_TIME_IN_MILLIS);
-       binding.progressbar.setValue(START_SHORT_BREAK_TIME_IN_MILLIS);
-       binding.timeTxt.setText(remainingTime);
-       binding.startBtn.setVisibility(View.VISIBLE);
-       binding.cancelBtn.setVisibility(View.GONE);
-       timerType = "Short Break";
-   }
+    private void startShortBreakInfo() {
+        String remainingTime = DateUtils.getFormattedTime(START_SHORT_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setMaxValue(START_SHORT_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setValue(START_SHORT_BREAK_TIME_IN_MILLIS);
+        binding.timeTxt.setText(remainingTime);
+        binding.startBtn.setVisibility(View.VISIBLE);
+        binding.cancelBtn.setVisibility(View.GONE);
+        timerType = "Short Break";
+    }
 
-   private void startLongBreakInfo() {
-       String remainingTime = DateUtils.getFormattedTime(START_LONG_BREAK_TIME_IN_MILLIS);
-       binding.progressbar.setMaxValue(START_LONG_BREAK_TIME_IN_MILLIS);
-       binding.progressbar.setValue(START_LONG_BREAK_TIME_IN_MILLIS);
-       binding.timeTxt.setText(remainingTime);
-       binding.startBtn.setVisibility(View.VISIBLE);
-       binding.cancelBtn.setVisibility(View.GONE);
-       timerType = "Long Break";
-   }
+    private void startLongBreakInfo() {
+        String remainingTime = DateUtils.getFormattedTime(START_LONG_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setMaxValue(START_LONG_BREAK_TIME_IN_MILLIS);
+        binding.progressbar.setValue(START_LONG_BREAK_TIME_IN_MILLIS);
+        binding.timeTxt.setText(remainingTime);
+        binding.startBtn.setVisibility(View.VISIBLE);
+        binding.cancelBtn.setVisibility(View.GONE);
+        timerType = "Long Break";
+    }
 
     private void resetPomodoroInfo() {
         String remainingTime = DateUtils.getFormattedTime(POMODORO_TIMER_IN_MILLIS);
@@ -89,10 +99,10 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
     }
 
     private void startTimer(int millis) {
-        timer = new CountDownTimer(millis,1000) {
+        timer = new CountDownTimer(millis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                binding.progressbar.setValue((int)millisUntilFinished);
+                binding.progressbar.setValue((int) millisUntilFinished);
                 String remainingTime = DateUtils.getFormattedTime(millisUntilFinished);
                 binding.timeTxt.setText(remainingTime);
             }
@@ -100,7 +110,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
             @Override
             public void onFinish() {
                 binding.progressbar.setValue(0);
-                if(timerType.equalsIgnoreCase("Pomodoro")) {
+                if (timerType.equalsIgnoreCase("Pomodoro")) {
                     updatePomodoro(task);
                 } else {
                     resetPomodoroInfo();
@@ -127,14 +137,13 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         binding.startBtn.setOnClickListener(v -> {
             binding.cancelBtn.setVisibility(View.VISIBLE);
             binding.startBtn.setVisibility(View.GONE);
-            if(timerType.equalsIgnoreCase("Pomodoro")) {
+            if (timerType.equalsIgnoreCase("Pomodoro")) {
                 startTimer(POMODORO_TIMER_IN_MILLIS);
-            } else if(timerType.equalsIgnoreCase("Short Break")) {
-                 startTimer(START_SHORT_BREAK_TIME_IN_MILLIS);
+            } else if (timerType.equalsIgnoreCase("Short Break")) {
+                startTimer(START_SHORT_BREAK_TIME_IN_MILLIS);
             } else {
                 startTimer(START_LONG_BREAK_TIME_IN_MILLIS);
             }
-            //use condition for initial start
         });
     }
 
@@ -147,21 +156,21 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
 
     private void showMotivationalDialog() {
         MotivationalDialogueFragment motivationalDialogueFragment = new MotivationalDialogueFragment();
-       motivationalDialogueFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
-   }
+        motivationalDialogueFragment.show(this.getSupportFragmentManager(), this.getClass().getSimpleName());
+    }
 
     private void showSuccessDialog() {
         SuccessDialogFragment successDialogFragment = new SuccessDialogFragment();
-        successDialogFragment.show(this.getSupportFragmentManager(),this.getClass().getSimpleName());
+        successDialogFragment.show(this.getSupportFragmentManager(), this.getClass().getSimpleName());
     }
 
-   private void updateTask() {
+    private void updateTask() {
         binding.taskNameTxt.setOnClickListener(view -> {
             binding.taskNameTxt.getText().toString();
             Intent intent = new Intent(this, CreateTaskActivity.class);
             startActivity(intent);
         });
-   }
+    }
 
     private void updatePomodoro(Task task) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -173,13 +182,14 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(PomodoroActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        if(task.noOfPomodoros == 1){
+                        showData();
+                        if (task.noOfPomodoros == 1) {
                             showMotivationalDialog();
-                        }else if(task.noOfPomodoros == 2){
+                        } else if (task.noOfPomodoros == 2) {
                             showMotivationalDialog();
-                        }else if(task.noOfPomodoros == 3){
+                        } else if (task.noOfPomodoros == 3) {
                             showMotivationalDialog();
-                        }else {
+                        } else {
                             showSuccessDialog();
                         }
                     }
