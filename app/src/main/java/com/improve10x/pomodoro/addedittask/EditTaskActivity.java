@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,14 +47,14 @@ public class EditTaskActivity extends AppCompatActivity {
 
     private void showData() {
         binding.editTaskTxt.setText(task.title);
-        binding.pomodoroEditSb.getProgress();
+        binding.pmodoroEditSb.getProgress();
     }
 
     protected void editTask(String id) {
         binding.saveBtn.setOnClickListener(view -> {
             Intent intent = new Intent(this, TaskActivity.class);
             task.title = binding.editTaskTxt.getText().toString();
-            task.editPomodoros = binding.pomodoroEditSb.getProgress();
+            task.editPomodoros = binding.pmodoroEditSb.getProgress();
             startActivity(intent);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,4 +70,6 @@ public class EditTaskActivity extends AppCompatActivity {
                     });
         });
     }
+
+
 }
