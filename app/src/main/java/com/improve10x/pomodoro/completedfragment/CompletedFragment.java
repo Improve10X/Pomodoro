@@ -46,6 +46,7 @@ public class CompletedFragment extends Fragment {
     }
 
     private void getData() {
+        showProgressBar();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("/users/" + user.getUid() + "/tasks")
@@ -55,6 +56,7 @@ public class CompletedFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            hideProgressBar();
                             List<Task> tasks = task.getResult().toObjects(Task.class);
                             completedTasksAdapter.setData(tasks);
                         } else {
@@ -62,5 +64,13 @@ public class CompletedFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void showProgressBar() {
+        binding.progressGroupGrp.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        binding.progressGroupGrp.setVisibility(View.GONE);
     }
 }
