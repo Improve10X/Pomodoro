@@ -39,6 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        displayProgressBar();
         handleSave();
         fetchData();
     }
@@ -98,7 +99,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        displayProgressBar();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("/users/" + user.getUid() + "/settings")
@@ -124,10 +124,10 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void displayProgressBar() {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progress.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressBar() {
-        binding.progressBar.setVisibility(View.GONE);
+        binding.progress.setVisibility(View.GONE);
     }
 }
