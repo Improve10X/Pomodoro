@@ -43,7 +43,7 @@ public class MotivationalDialogueFragment extends DialogFragment {
     }
 
     private void handleSkipBreak() {
-        binding.skipBreak.setOnClickListener(view -> {
+        binding.skipBreakBtn.setOnClickListener(view -> {
             actionListener.skipBreak();
             dismiss();
         });

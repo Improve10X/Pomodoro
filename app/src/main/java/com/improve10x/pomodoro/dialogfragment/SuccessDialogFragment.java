@@ -29,7 +29,7 @@ public class SuccessDialogFragment extends DialogFragment {
     }
 
     private void handleSkip() {
-        binding.skipBreak.setOnClickListener(view -> {
+        binding.skipBreakBtn.setOnClickListener(view -> {
             actionListener.skipBreak();
             dismiss();
         });

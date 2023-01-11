@@ -80,6 +80,7 @@ public class TodoFragment extends BaseFragment {
     }
 
     private void fetchData() {
+        showProgressBar();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("/users/" + user.getUid() + "/tasks")
@@ -89,6 +90,7 @@ public class TodoFragment extends BaseFragment {
                     @Override
                     public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
+                            hideProgressBar();
                            List<Task> tasks = task.getResult().toObjects(Task.class);
                            taskItemsAdapter.setTaskItems(tasks);
                         } else {
@@ -113,6 +115,7 @@ public class TodoFragment extends BaseFragment {
     }
 
     private void onCheck(Task task) {
+        showProgressBar();
        task.status = "Completed";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -121,6 +124,7 @@ public class TodoFragment extends BaseFragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        hideProgressBar();
                         Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
                         fetchData();
                     }
@@ -128,8 +132,18 @@ public class TodoFragment extends BaseFragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        hideProgressBar();
                         Toast.makeText(getActivity(), "Failed to update", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void showProgressBar() {
+        binding.progress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        binding.progress.setVisibility(View.GONE);
+    }
+
 }
