@@ -11,20 +11,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="24dp">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="70dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/_d_metal_star_isolated_1308_117760"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stars_png_613" />
 
         <TextView
             android:id="@+id/textView4"
@@ -53,11 +52,11 @@
 
         <Button
             android:id="@+id/start_short_break_btn"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="64dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
             android:text="Start Short Break "
             android:textAllCaps="false"
             android:textSize="20sp"
@@ -70,28 +69,25 @@
             android:id="@+id/start_long_break_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="64dp"
+            android:layout_marginTop="4dp"
             android:text="Start Long Break"
             android:textAllCaps="false"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/start_short_break_btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/start_short_break_btn"
             app:layout_constraintTop_toBottomOf="@+id/start_short_break_btn" />
 
         <Button
             android:id="@+id/skip_break_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="64dp"
             android:text="Skip Break"
             android:textAllCaps="false"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/start_long_break_btn"
+            app:layout_constraintStart_toStartOf="@+id/start_long_break_btn"
             app:layout_constraintTop_toBottomOf="@+id/start_long_break_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
