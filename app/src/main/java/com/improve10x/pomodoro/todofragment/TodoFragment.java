@@ -44,7 +44,6 @@ public class TodoFragment extends BaseFragment {
         toDoRv();
         return binding.getRoot();
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -73,6 +72,12 @@ public class TodoFragment extends BaseFragment {
             public void onChecked(Task task) {
                 Toast.makeText(getActivity(), "Checked Successfully", Toast.LENGTH_SHORT).show();
                 onCheck(task);
+            }
+
+            @Override
+            public void OnRefresh(Task task) {
+                Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+                fetchData();
             }
         });
 
