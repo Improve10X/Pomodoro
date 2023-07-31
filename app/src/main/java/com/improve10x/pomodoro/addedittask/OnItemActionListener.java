@@ -9,7 +9,4 @@ public interface OnItemActionListener {
     void onItemClick(Task task);
 
     void onChecked(Task task);
-
-    void OnRefresh(Task task);
-
 }

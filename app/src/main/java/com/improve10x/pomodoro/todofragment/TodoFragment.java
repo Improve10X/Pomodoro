@@ -36,14 +36,17 @@ public class TodoFragment extends BaseFragment {
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
     private Task task;
+    private ActionListener actionListener;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
         toDoRv();
+        onRefreshDeleted();
         return binding.getRoot();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -73,17 +76,19 @@ public class TodoFragment extends BaseFragment {
                 Toast.makeText(getActivity(), "Checked Successfully", Toast.LENGTH_SHORT).show();
                 onCheck(task);
             }
-
-            @Override
-            public void OnRefresh(Task task) {
-                Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
-                fetchData();
-            }
         });
 
         taskItemsAdapter.setTaskItems(taskItems);
         binding.todoRv.setAdapter(taskItemsAdapter);
         
+    }
+    private void onRefreshDeleted() {
+        actionListener = new ActionListener() {
+            @Override
+            public void onRefresh(Task task) {
+                fetchData();
+            }
+        };
     }
 
     private void fetchData() {

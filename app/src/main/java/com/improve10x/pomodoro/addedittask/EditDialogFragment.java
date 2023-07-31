@@ -19,13 +19,15 @@ import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.addedittask.EditTaskActivity;
 import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.databinding.EditFragmentDialogBinding;
+import com.improve10x.pomodoro.todofragment.ActionListener;
 
 
 public class EditDialogFragment extends DialogFragment{
 
     private EditFragmentDialogBinding binding;
     protected Task task;
-    public OnItemActionListener onItemActionListener;
+    public ActionListener actionListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,8 +67,7 @@ public class EditDialogFragment extends DialogFragment{
                         public void onSuccess(Void unused) {
                             Toast.makeText(getActivity(), "successfully deleted", Toast.LENGTH_SHORT).show();
                             dismiss();
-                            onItemActionListener.OnRefresh(task);
-
+                            actionListener.onRefresh(task);
                         }
                     });
         });
