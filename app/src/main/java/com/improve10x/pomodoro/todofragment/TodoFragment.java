@@ -60,6 +60,7 @@ public class TodoFragment extends BaseFragment {
             public void onLongClicked(Task task) {
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 onLongClick(task);
+
             }
 
             @Override
@@ -77,6 +78,7 @@ public class TodoFragment extends BaseFragment {
 
         taskItemsAdapter.setTaskItems(taskItems);
         binding.todoRv.setAdapter(taskItemsAdapter);
+        
     }
 
     private void fetchData() {
