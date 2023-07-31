@@ -21,7 +21,7 @@ import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.databinding.EditFragmentDialogBinding;
 
 
-public class EditDialogFragment extends DialogFragment {
+public class EditDialogFragment extends DialogFragment{
 
     private EditFragmentDialogBinding binding;
     protected Task task;
@@ -34,8 +34,14 @@ public class EditDialogFragment extends DialogFragment {
         Bundle bundle = getArguments();
         task = (Task) bundle.getSerializable(Constants.KEY_TASK);
         handleEdit(task);
-        deleteTask(task.id);
+        //deleteTask(task.id);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        deleteTask(task.id);
     }
 
     private void handleEdit(Task task) {
