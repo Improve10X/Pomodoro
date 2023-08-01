@@ -36,8 +36,6 @@ public class TaskActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
