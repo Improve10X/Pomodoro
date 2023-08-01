@@ -34,7 +34,7 @@ public class TaskActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = binding.addFab;
+       /* FloatingActionButton fab = binding.addFab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,15 +42,10 @@ public class TaskActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 handleAddFab();
             }
-        });
+        });*/
     }
 
-    private void handleAddFab() {
-        binding.addFab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, CreateTaskActivity.class);
-            startActivity(intent);
-        });
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

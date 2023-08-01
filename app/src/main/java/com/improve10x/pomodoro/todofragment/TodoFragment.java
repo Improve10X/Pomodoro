@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.Constants;
+import com.improve10x.pomodoro.addedittask.CreateTaskActivity;
 import com.improve10x.pomodoro.addedittask.EditDialogFragment;
 import com.improve10x.pomodoro.addedittask.OnItemActionListener;
 import com.improve10x.pomodoro.base.BaseFragment;
@@ -44,7 +45,9 @@ public class TodoFragment extends BaseFragment {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
         toDoRv();
         onRefreshDeleted();
+        handleAddFab();
         return binding.getRoot();
+
     }
 
     @Override
@@ -62,7 +65,6 @@ public class TodoFragment extends BaseFragment {
             public void onLongClicked(Task task) {
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 onLongClick(task);
-
             }
 
             @Override
@@ -89,6 +91,13 @@ public class TodoFragment extends BaseFragment {
                 fetchData();
             }
         };
+    }
+
+    private void handleAddFab() {
+        binding.addFab.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), CreateTaskActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void fetchData() {

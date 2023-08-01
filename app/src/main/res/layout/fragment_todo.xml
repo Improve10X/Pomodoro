@@ -46,4 +46,13 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="progress_bar,textView13" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
