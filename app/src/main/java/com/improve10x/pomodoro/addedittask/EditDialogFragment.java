@@ -1,6 +1,7 @@
 package com.improve10x.pomodoro.addedittask;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,6 +56,12 @@ public class EditDialogFragment extends DialogFragment{
             intent.putExtra(Constants.KEY_TASK, task);
             startActivity(intent);
         });
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
     }
 
     private void deleteTask(String id) {
