@@ -27,6 +27,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginBtn;
+    Button guestModeBtn;
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
@@ -54,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
                     .setAvailableProviders(providers)
                     .build();
             signInLauncher.launch(signInIntent);
+
+        });
+        guestModeBtn = findViewById(R.id.guest_mode_btn);
+        guestModeBtn.setOnClickListener(view -> {
 
         });
     }
