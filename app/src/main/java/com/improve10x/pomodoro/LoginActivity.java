@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.improve10x.pomodoro.databinding.ActivityLoginBinding;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
 import java.util.Arrays;
@@ -26,8 +27,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginBtn;
-    Button guestModeBtn;
+   ActivityLoginBinding binding;
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
@@ -46,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         getSupportActionBar().hide();
-        loginBtn = findViewById(R.id.login_id);
-        loginBtn.setOnClickListener(view -> {
+        binding.loginId.setOnClickListener(view -> {
             Intent signInIntent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
@@ -57,18 +57,14 @@ public class LoginActivity extends AppCompatActivity {
             signInLauncher.launch(signInIntent);
 
         });
-        guestModeBtn = findViewById(R.id.guest_mode_btn);
-        guestModeBtn.setOnClickListener(view -> {
-
-        });
     }
 
     private void updateUi() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
-            loginBtn.setVisibility(View.GONE);
+            binding.loginId.setVisibility(View.GONE);
         } else {
-            loginBtn.setVisibility(View.VISIBLE);
+            binding.loginId.setVisibility(View.VISIBLE);
         }
 
     }
