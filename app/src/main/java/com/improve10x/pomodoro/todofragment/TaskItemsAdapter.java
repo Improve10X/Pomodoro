@@ -18,10 +18,18 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private List<Task> taskItems;
     private OnItemActionListener onItemActionListener;
 
+    private ActionListener actionListener;
+
     void setTaskItems(List<Task> taskItems) {
         this.taskItems = taskItems;
         notifyDataSetChanged();
     }
+
+    void setUpActionListener(ActionListener actionListener) {
+        this.actionListener = actionListener;
+        notifyDataSetChanged();
+    }
+
 
     void setOnItemClickListener(OnItemActionListener onItemActionListener) {
         this.onItemActionListener = onItemActionListener;

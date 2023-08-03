@@ -31,11 +31,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodoFragment extends BaseFragment {
+public class TodoFragment extends BaseFragment implements ActionListener {
 
     private ArrayList<Task> taskItems = new ArrayList<>();
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
+
     private Task task;
     private ActionListener actionListener;
 
@@ -44,7 +45,7 @@ public class TodoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
         toDoRv();
-        onRefreshDeleted();
+      //  onRefreshDeleted();
         handleAddFab();
         return binding.getRoot();
 
@@ -81,17 +82,18 @@ public class TodoFragment extends BaseFragment {
         });
 
         taskItemsAdapter.setTaskItems(taskItems);
+        taskItemsAdapter.setUpActionListener(actionListener);
         binding.todoRv.setAdapter(taskItemsAdapter);
         
     }
-    private void onRefreshDeleted() {
+   /* private void onRefreshDeleted() {
         actionListener = new ActionListener() {
             @Override
             public void onRefresh(Task task) {
                 fetchData();
             }
         };
-    }
+    }*/
 
     private void handleAddFab() {
         binding.addFab.setOnClickListener(view -> {
@@ -167,4 +169,9 @@ public class TodoFragment extends BaseFragment {
         binding.progress.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onRefresh(Task task) {
+        actionListener = new TodoFragment();
+        fetchData();
+    }
 }
