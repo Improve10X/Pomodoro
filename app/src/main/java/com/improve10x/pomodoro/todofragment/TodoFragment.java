@@ -144,20 +144,15 @@ public class TodoFragment extends BaseFragment implements ActionListener {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("/users/" + user.getUid() + "/tasks").document(task.id)
                 .set(task)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        hideProgressBar();
-                        Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
-                        fetchData();
-                    }
+                .addOnSuccessListener(unused -> {
+                    hideProgressBar();
+                    Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
+                    fetchData();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        hideProgressBar();
-                        Toast.makeText(getActivity(), "Failed to update", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    hideProgressBar();
+                    Toast.makeText(getActivity(), "Failed to update", Toast.LENGTH_SHORT).show();
+
                 });
     }
 
