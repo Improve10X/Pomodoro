@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Pomodoro"
         tools:targetApi="31">
         <activity
+            android:name=".UserLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".addedittask.EditTaskActivity"
             android:exported="false">
             <meta-data
