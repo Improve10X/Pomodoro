@@ -40,7 +40,17 @@ public class UserLoginActivity extends AppCompatActivity {
 
 
     private void handleGuestBtn() {
+        binding.guestModeBtn.setOnClickListener(v -> {
+            firebaseAuth.signInAnonymously()
+                    .addOnCompleteListener(task -> {
+                   Intent intent = new Intent(this,PomodoroActivity.class);
+                           startActivity(intent);
 
+        })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
+                    });
+        });
     }
 
     private void handleLoginBtn() {
