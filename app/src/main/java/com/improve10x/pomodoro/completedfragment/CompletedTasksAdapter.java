@@ -38,17 +38,20 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTaskVie
         if (task.noOfPomodoros == task.expectedPomodoro) {
             holder.binding.countDownBar.setRating(task.noOfPomodoros);
             holder.binding.extraCountDownBar.setVisibility(View.GONE);
-            Picasso.get().load("https://static.vecteezy.com/system/resources/previews/000/458/152/original/vector-abstract-3d-success-design.jpg").into(holder.binding.completeImageUrlImg);
+            Picasso.get().load("https://play-lh.googleusercontent.com/lvzhOnGwhocUQ-eGWpJZvVskxKByATRGU2tkSXhjjq_5YItUL-Z_oCjmHJUJsMJqQEw").into(holder.binding.completeImageUrlImg);
+           // Picasso.get().load("https://static.vecteezy.com/system/resources/previews/000/458/152/original/vector-abstract-3d-success-design.jpg").into(holder.binding.completeImageUrlImg);
         } else if (task.noOfPomodoros > task.expectedPomodoro) {
             holder.binding.countDownBar.setRating(task.expectedPomodoro);
             holder.binding.extraCountDownBar.setVisibility(View.VISIBLE);
             holder.binding.extraCountDownBar.setNumStars(task.noOfPomodoros - task.expectedPomodoro);
             holder.binding.extraCountDownBar.setRating(task.noOfPomodoros - task.expectedPomodoro);
-            Picasso.get().load("https://i.huffpost.com/gen/2186196/images/o-SECRETS-OF-SUCCESS-facebook.jpg").into(holder.binding.completeImageUrlImg);
+            Picasso.get().load("https://images-cdn.ubuy.co.in/63586d8fb67f9947294667ce-tomato-kitchen-timer-cooking-reminder.jpg").into(holder.binding.completeImageUrlImg);
+            //Picasso.get().load("https://i.huffpost.com/gen/2186196/images/o-SECRETS-OF-SUCCESS-facebook.jpg").into(holder.binding.completeImageUrlImg);
         } else {
             holder.binding.countDownBar.setRating(task.noOfPomodoros);
             holder.binding.extraCountDownBar.setVisibility(View.GONE);
-            Picasso.get().load("https://i.pinimg.com/originals/64/6e/41/646e41b261004f0605d63b6ef44b0be6.png").into(holder.binding.completeImageUrlImg);
+            Picasso.get().load("https://st4.depositphotos.com/14768666/20580/v/450/depositphotos_205805970-stock-illustration-tomato-timer-mockup-realistic-style.jpg").into(holder.binding.completeImageUrlImg);
+           // Picasso.get().load("https://i.pinimg.com/originals/64/6e/41/646e41b261004f0605d63b6ef44b0be6.png").into(holder.binding.completeImageUrlImg);
         }
     }
 

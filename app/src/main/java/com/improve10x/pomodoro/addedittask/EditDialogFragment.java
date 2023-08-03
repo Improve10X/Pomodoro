@@ -1,6 +1,7 @@
 package com.improve10x.pomodoro.addedittask;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,12 +22,15 @@ import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.addedittask.EditTaskActivity;
 import com.improve10x.pomodoro.addedittask.Task;
 import com.improve10x.pomodoro.databinding.EditFragmentDialogBinding;
+import com.improve10x.pomodoro.todofragment.ActionListener;
 
 
 public class EditDialogFragment extends DialogFragment{
 
     private EditFragmentDialogBinding binding;
     protected Task task;
+    public ActionListener actionListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +58,12 @@ public class EditDialogFragment extends DialogFragment{
         });
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
+    }
+
     private void deleteTask(String id) {
         binding.deleteBtn.setOnClickListener(view -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -64,6 +76,7 @@ public class EditDialogFragment extends DialogFragment{
                         public void onSuccess(Void unused) {
                             Toast.makeText(getActivity(), "successfully deleted", Toast.LENGTH_SHORT).show();
                             dismiss();
+                            actionListener.onRefresh(task);
                         }
                     });
         });

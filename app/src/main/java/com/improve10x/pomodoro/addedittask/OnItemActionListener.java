@@ -9,5 +9,4 @@ public interface OnItemActionListener {
     void onItemClick(Task task);
 
     void onChecked(Task task);
-
 }

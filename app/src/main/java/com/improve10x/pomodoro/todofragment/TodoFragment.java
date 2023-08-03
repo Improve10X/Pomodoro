@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.improve10x.pomodoro.Constants;
+import com.improve10x.pomodoro.addedittask.CreateTaskActivity;
 import com.improve10x.pomodoro.addedittask.EditDialogFragment;
 import com.improve10x.pomodoro.addedittask.OnItemActionListener;
 import com.improve10x.pomodoro.base.BaseFragment;
@@ -30,19 +31,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodoFragment extends BaseFragment {
+public class TodoFragment extends BaseFragment implements ActionListener {
 
     private ArrayList<Task> taskItems = new ArrayList<>();
     private FragmentTodoBinding binding;
     private TaskItemsAdapter taskItemsAdapter;
+
     private Task task;
+    private ActionListener actionListener;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
         toDoRv();
+      //  onRefreshDeleted();
+        handleAddFab();
         return binding.getRoot();
+
     }
 
     @Override
@@ -60,7 +66,6 @@ public class TodoFragment extends BaseFragment {
             public void onLongClicked(Task task) {
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 onLongClick(task);
-
             }
 
             @Override
@@ -77,8 +82,24 @@ public class TodoFragment extends BaseFragment {
         });
 
         taskItemsAdapter.setTaskItems(taskItems);
+        taskItemsAdapter.setUpActionListener(actionListener);
         binding.todoRv.setAdapter(taskItemsAdapter);
         
+    }
+   /* private void onRefreshDeleted() {
+        actionListener = new ActionListener() {
+            @Override
+            public void onRefresh(Task task) {
+                fetchData();
+            }
+        };
+    }*/
+
+    private void handleAddFab() {
+        binding.addFab.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), CreateTaskActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void fetchData() {
@@ -148,4 +169,9 @@ public class TodoFragment extends BaseFragment {
         binding.progress.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onRefresh(Task task) {
+        actionListener = new TodoFragment();
+        fetchData();
+    }
 }
