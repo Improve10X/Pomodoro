@@ -33,9 +33,22 @@ public class UserLoginActivity extends AppCompatActivity {
         binding = ActivityUserLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();
-//        handleLoginBtn();
-//        handleGuestBtn();
-    }
+        handleLoginBtn();
+        handleGuestBtn();
     }
 
 
+
+    private void handleGuestBtn() {
+
+    }
+
+    private void handleLoginBtn() {
+        binding.loginBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+}
