@@ -63,4 +63,10 @@ public class CompletedFragment extends Fragment {
                     }
                 });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
 }
