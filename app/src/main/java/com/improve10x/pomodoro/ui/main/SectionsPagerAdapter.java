@@ -2,10 +2,13 @@ package com.improve10x.pomodoro.ui.main;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.improve10x.pomodoro.completedfragment.CompletedFragment;
 import com.improve10x.pomodoro.todofragment.TodoFragment;
@@ -14,35 +17,27 @@ import com.improve10x.pomodoro.todofragment.TodoFragment;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentStateAdapter {
 
-    private static String[] TAB_TITLES = new String[]{"Todo", "Completed"};
-    private final Context mContext;
+    private static final String[] TAB_TITLES = new String[]{"Todo", "Completed"};
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
-        mContext = context;
+    public SectionsPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
+    public Fragment createFragment(int position) {
         if (position == 0) {
             return new TodoFragment();
         } else {
             return new CompletedFragment();
         }
     }
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return TAB_TITLES[position];
-    }
+
 
     @Override
-    public int getCount() {
-        // Show 2 total pages.
+    public int getItemCount() {
         return TAB_TITLES.length;
     }
 }
