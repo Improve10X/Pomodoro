@@ -28,8 +28,8 @@ import com.improve10x.pomodoro.home.PomodoroActivity;
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
     private SettingsItem settingsItem;
-    private int ringingVolume;
-    private int tickingVolume;
+    private Integer ringingVolume;
+    private Integer tickingVolume;
     private ProgressBar progressBar;
 
     @Override
@@ -41,7 +41,11 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         displayProgressBar();
         handleSave();
-        fetchData();
+        settingsItem = new SettingsItem();
+        //fetchData();
+        if(settingsItem.ringingVolume != null && settingsItem.tickingVolume !=null) {
+            fetchData();
+        }
     }
 
     @Override
@@ -109,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Toast.makeText(SettingsActivity.this, "Save", Toast.LENGTH_SHORT).show();
                         hideProgressBar();
-                        SettingsItem settingsItem = documentSnapshot.toObject(SettingsItem.class);
+                        settingsItem = documentSnapshot.toObject(SettingsItem.class);
                         binding.tickingVolumeSb.setProgress(settingsItem.tickingVolume);
                         binding.ringingVolumeSb.setProgress(settingsItem.ringingVolume);
                     }
@@ -118,7 +122,6 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         hideProgressBar();
-
                     }
                 });
     }
