@@ -58,12 +58,6 @@ public class EditDialogFragment extends DialogFragment{
         });
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
-    }
-
     private void deleteTask(String id) {
         binding.deleteBtn.setOnClickListener(view -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -81,4 +75,10 @@ public class EditDialogFragment extends DialogFragment{
                     });
         });
     }
+
+   /* @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
+    }*/
 }

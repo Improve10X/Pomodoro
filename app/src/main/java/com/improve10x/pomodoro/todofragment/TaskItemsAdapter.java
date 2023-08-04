@@ -27,7 +27,6 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     void setUpActionListener(ActionListener actionListener) {
         this.actionListener = actionListener;
-        notifyDataSetChanged();
     }
 
 

@@ -47,14 +47,14 @@ public class EditTaskActivity extends AppCompatActivity {
 
     private void showData() {
         binding.editTaskTxt.setText(task.title);
-        binding.pmodoroEditSb.getProgress();
+        binding.pmodoroEditSb.setProgress(task.expectedPomodoro);
     }
 
     protected void editTask(String id) {
         binding.saveBtn.setOnClickListener(view -> {
             Intent intent = new Intent(this, TaskActivity.class);
             task.title = binding.editTaskTxt.getText().toString();
-            task.editPomodoros = binding.pmodoroEditSb.getProgress();
+            task.expectedPomodoro = binding.pmodoroEditSb.getProgress();
             startActivity(intent);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

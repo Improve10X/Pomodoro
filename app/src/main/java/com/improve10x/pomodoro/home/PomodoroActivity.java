@@ -178,7 +178,6 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         task.noOfPomodoros = task.noOfPomodoros + 1;
-        task.id = db.collection("tasks").document().getId();
         db.collection("/users/" + user.getUid() + "/tasks").document(task.id)
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
