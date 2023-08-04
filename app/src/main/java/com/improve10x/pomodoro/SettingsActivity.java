@@ -41,11 +41,11 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         displayProgressBar();
         handleSave();
-        settingsItem = new SettingsItem();
-        //fetchData();
-        if(settingsItem.ringingVolume != null && settingsItem.tickingVolume !=null) {
-            fetchData();
-        }
+//        settingsItem = new SettingsItem();
+        fetchData();
+//        if(settingsItem.ringingVolume != null && settingsItem.tickingVolume !=null) {
+//            fetchData();
+//        }
     }
 
     @Override
@@ -114,8 +114,10 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(SettingsActivity.this, "Save", Toast.LENGTH_SHORT).show();
                         hideProgressBar();
                         settingsItem = documentSnapshot.toObject(SettingsItem.class);
-                        binding.tickingVolumeSb.setProgress(settingsItem.tickingVolume);
-                        binding.ringingVolumeSb.setProgress(settingsItem.ringingVolume);
+                        if(settingsItem != null){
+                            binding.tickingVolumeSb.setProgress(settingsItem.tickingVolume);
+                            binding.ringingVolumeSb.setProgress(settingsItem.ringingVolume);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
