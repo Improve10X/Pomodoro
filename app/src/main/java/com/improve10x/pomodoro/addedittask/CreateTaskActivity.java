@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +33,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         handleSaveBtn();
         handleStartBtn();
+        showProgress();
     }
 
     @Override
@@ -112,5 +114,23 @@ public class CreateTaskActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    private void showProgress() {
+        binding.addSeekbarSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                String message = "No of Pomodoros: " + progress;
+                Toast.makeText(CreateTaskActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 }
