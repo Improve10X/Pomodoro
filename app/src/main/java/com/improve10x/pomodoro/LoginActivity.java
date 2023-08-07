@@ -49,26 +49,12 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-        binding.loginId.setOnClickListener(view -> {
             Intent signInIntent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .build();
             signInLauncher.launch(signInIntent);
-
-        });
     }
-
-    private void updateUi() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null) {
-            binding.loginId.setVisibility(View.GONE);
-        } else {
-            binding.loginId.setVisibility(View.VISIBLE);
-        }
-
-    }
-
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
@@ -77,11 +63,9 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PomodoroActivity.class);
             startActivity(intent);
-            updateUi();
             // ...
         } else {
             Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-            updateUi();
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
             // response.getError().getErrorCode() and handle the error.
