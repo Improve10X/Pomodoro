@@ -113,7 +113,9 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
             public void onFinish() {
                 binding.progressbar.setValue(0);
                 if (timerType.equalsIgnoreCase("Pomodoro")) {
-                    updatePomodoro(task);
+                    if (task.id != null) {
+                        updatePomodoro(task);
+                    }
                 } else {
                     resetPomodoroInfo();
                 }
@@ -178,7 +180,7 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroActiv
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         task.noOfPomodoros = task.noOfPomodoros + 1;
-        db.collection("/users/" + user.getUid() + "/tasks").document(task.id)
+        db.collection("/users/" + user.getUid() + "/tasks/").document(task.id)
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
