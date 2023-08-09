@@ -1,5 +1,6 @@
 package com.improve10x.pomodoro.todofragment;
 
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.improve10x.pomodoro.OnDragActionListener;
 import com.improve10x.pomodoro.addedittask.OnItemActionListener;
 import com.improve10x.pomodoro.databinding.TodoItemBinding;
 import com.improve10x.pomodoro.addedittask.Task;
@@ -19,6 +21,11 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private OnItemActionListener onItemActionListener;
 
     private ActionListener actionListener;
+    private OnDragActionListener onDragActionListener;
+
+    void setOnDragActionListener(OnDragActionListener onDragActionListener) {
+        this.onDragActionListener = onDragActionListener;
+    }
 
     void setTaskItems(List<Task> taskItems) {
         this.taskItems = taskItems;
@@ -68,6 +75,12 @@ public class TaskItemsAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             holder.binding.countBar.setRating(task.noOfPomodoros);
             holder.binding.countExtraBar.setVisibility(View.GONE);
         }
+        holder.binding.dragIb.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View view, DragEvent dragEvent) {
+                return false;
+            }
+        });
     }
 
     @Override

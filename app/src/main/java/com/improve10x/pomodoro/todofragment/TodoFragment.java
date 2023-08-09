@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +86,8 @@ public class TodoFragment extends BaseFragment implements ActionListener {
         taskItemsAdapter.setTaskItems(taskItems);
         taskItemsAdapter.setUpActionListener(actionListener);
         binding.todoRv.setAdapter(taskItemsAdapter);
-        
+        ItemTouchHelper itemTouchHelper1 = new ItemTouchHelper(itemTouchHelper);
+        itemTouchHelper1.attachToRecyclerView(binding.todoRv);
     }
    /* private void onRefreshDeleted() {
         actionListener = new ActionListener() {
@@ -169,4 +172,28 @@ public class TodoFragment extends BaseFragment implements ActionListener {
         actionListener = new TodoFragment();
         fetchData();
     }
+
+    ItemTouchHelper.Callback itemTouchHelper = new ItemTouchHelper.Callback() {
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            if (viewHolder.itemView != target.itemView) {
+                return false;
+            }
+            int from = viewHolder.getAdapterPosition();
+            int to = target.getAdapterPosition();
+            Task task = taskItems.remove(from);
+            taskItems.add(to, task);
+            taskItemsAdapter.notifyItemMoved(from, to);
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        }
+    };
 }
