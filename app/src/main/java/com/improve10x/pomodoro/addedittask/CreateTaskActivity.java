@@ -19,6 +19,8 @@ import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.databinding.ActivityCreateTaskBinding;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
+import java.util.StringTokenizer;
+
 public class CreateTaskActivity extends AppCompatActivity {
 
     private ActivityCreateTaskBinding binding;
@@ -53,7 +55,6 @@ public class CreateTaskActivity extends AppCompatActivity {
             startAddTask(taskName, expectedPomodoro);
             Intent intent = new Intent(this, PomodoroActivity.class);
             startActivity(intent);
-
         });
     }
 
@@ -61,8 +62,11 @@ public class CreateTaskActivity extends AppCompatActivity {
         binding.saveBtn.setOnClickListener(view -> {
             String title = binding.addTaskTxt.getText().toString();
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
-            saveAddTask(title, expectedPomodoro);
-            finish();
+            if (!isAllSpaces(title)) {
+                saveAddTask(title, expectedPomodoro);
+            } else {
+                Toast.makeText(this, "Pomodoro not Includes Spaces", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -76,14 +80,14 @@ public class CreateTaskActivity extends AppCompatActivity {
         task.expectedPomodoro = expectedPomodoro;
         task.noOfPomodoros = 0;
 
-       db.collection("/users/" + user.getUid() + "/tasks")
-               .document(task.id)
+        db.collection("/users/" + user.getUid() + "/tasks")
+                .document(task.id)
                 .set(task)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "saved successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CreateTaskActivity.this , TaskActivity.class);
+                        Intent intent = new Intent(CreateTaskActivity.this, TaskActivity.class);
                         intent.putExtra(Constants.KEY_TASK, task);
                         startActivity(intent);
                         finish();
@@ -108,7 +112,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(CreateTaskActivity.this, "started successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CreateTaskActivity.this , PomodoroActivity.class);
+                        Intent intent = new Intent(CreateTaskActivity.this, PomodoroActivity.class);
                         intent.putExtra(Constants.KEY_TASK, task);
                         startActivity(intent);
                         finish();
@@ -123,14 +127,27 @@ public class CreateTaskActivity extends AppCompatActivity {
                 String message = "No of Pomodoros: " + progress;
                 Toast.makeText(CreateTaskActivity.this, message, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
+    }
+
+    public boolean isAllSpaces(String text) {
+        int spaceChars = 0;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == ' ') {
+                spaceChars++;
+            }
+        }
+        return spaceChars == text.length();
     }
 }
