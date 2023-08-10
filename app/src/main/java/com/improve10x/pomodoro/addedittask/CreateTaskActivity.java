@@ -19,6 +19,8 @@ import com.improve10x.pomodoro.Constants;
 import com.improve10x.pomodoro.databinding.ActivityCreateTaskBinding;
 import com.improve10x.pomodoro.home.PomodoroActivity;
 
+import java.util.StringTokenizer;
+
 public class CreateTaskActivity extends AppCompatActivity {
 
     private ActivityCreateTaskBinding binding;
@@ -61,8 +63,9 @@ public class CreateTaskActivity extends AppCompatActivity {
         binding.saveBtn.setOnClickListener(view -> {
             String title = binding.addTaskTxt.getText().toString();
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
-            saveAddTask(title, expectedPomodoro);
-            finish();
+            if (!isAllSpaces(title)) {
+                saveAddTask(title, expectedPomodoro);
+            }
         });
     }
 
@@ -132,5 +135,15 @@ public class CreateTaskActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public boolean isAllSpaces(String text) {
+        int spaceChars = 0;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == ' ') {
+                spaceChars++;
+            }
+        }
+        return spaceChars == text.length();
     }
 }
