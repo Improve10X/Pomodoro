@@ -69,6 +69,9 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     });
             return true;
+        } else if(item.getItemId() == R.id.login) {
+            Toast.makeText(this, "Login With Mobile Number", Toast.LENGTH_SHORT).show();
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
