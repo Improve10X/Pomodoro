@@ -65,6 +65,8 @@ public class CreateTaskActivity extends AppCompatActivity {
             int expectedPomodoro = binding.addSeekbarSb.getProgress();
             if (!isAllSpaces(title)) {
                 saveAddTask(title, expectedPomodoro);
+            }else {
+                Toast.makeText(this, "Pomodoro not Includes Spaces", Toast.LENGTH_SHORT).show();
             }
         });
     }
