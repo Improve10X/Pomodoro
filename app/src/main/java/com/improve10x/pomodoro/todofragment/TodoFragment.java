@@ -48,7 +48,6 @@ public class TodoFragment extends BaseFragment implements ActionListener {
       //  onRefreshDeleted();
         handleAddFab();
         return binding.getRoot();
-
     }
 
     @Override
